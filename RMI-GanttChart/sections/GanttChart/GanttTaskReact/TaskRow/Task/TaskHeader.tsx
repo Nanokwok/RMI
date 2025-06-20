@@ -41,7 +41,7 @@ export const TaskHeader: React.FC<TaskHeaderProps> = ({
       </span>
     </div>
     <Badge status={status} className="!bg-gray-100 !text-gray-500 px-1.5 py-0.5 rounded-md">
-      {taskCount} Tasks
+      {taskCount === 0 ? "No Task" : `${taskCount} Task${taskCount > 1 ? "s" : ""}`}
     </Badge>
   </div>
 )

@@ -26,7 +26,7 @@ export const TaskRow: React.FC<TaskRowProps> = ({
   hasSubTasks,
   onToggleExpand,
 }) => (
-  <div className={`h-40 flex flex-col px-4 py-3 bg-white border-b border-r border-gray-200 box-border ${
+  <div className={`w-[550px] h-[170px] flex flex-col px-4 py-3 bg-white border-b border-r border-gray-200 box-border ${
     isParent ? "pl-4" : "pl-10"
   }`}>
     {isParent && plan ? (
@@ -40,7 +40,7 @@ export const TaskRow: React.FC<TaskRowProps> = ({
           onToggleExpand={onToggleExpand}
         />
         <RiskInfo linkedRisk={plan.linkedRisk} riskCategory={plan.riskCategory} />
-        <div className="flex items-center gap-2 mt-auto">
+        <div className="flex items-center gap-2 mt-auto ml-8">
           <Badge status={plan.status}>{plan.status}</Badge>
           <ProgressIndicator progress={plan.progress} />
         </div>
@@ -49,7 +49,7 @@ export const TaskRow: React.FC<TaskRowProps> = ({
       taskData && (
         <>
           <TaskInfo name={taskData.name} assignee={taskData.assignee} />
-          <div className="flex items-center gap-2 mt-auto">
+          <div className="flex items-center gap-2 ml-8">
             <Badge status={taskData.status}>{taskData.status}</Badge>
             <ProgressIndicator progress={task.progress} />
           </div>

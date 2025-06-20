@@ -6,7 +6,7 @@ interface RiskInfoProps {
 }
 
 export const RiskInfo: React.FC<RiskInfoProps> = ({ linkedRisk, riskCategory }) => (
-    <div className="mb-2 ml-8">
+    <div className="my-2 ml-8">
         <div className="text-base text-gray-500 leading-snug mb-1 overflow-hidden text-ellipsis whitespace-nowrap">
             <strong>Risk Name:</strong> {linkedRisk}
         </div>

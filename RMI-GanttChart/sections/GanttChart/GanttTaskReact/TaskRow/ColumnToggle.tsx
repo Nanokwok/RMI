@@ -35,7 +35,7 @@ export const ColumnToggle: React.FC<ColumnToggleProps> = ({
     ) : (
       <div 
         onClick={onToggle} 
-        className="absolute right-0 top-0 bottom-0 w-2 bg-gray-200 hover:bg-blue-500 transition-colors duration-200 z-10 flex items-center justify-center"
+        className="absolute right-0 top-0 bottom-0 w-2 bg-gray-200 hover:bg-gray-100 transition-colors duration-200 z-10 flex items-center justify-center"
       >
         <FaChevronRight className="text-gray-600 text-xs" />
       </div>
