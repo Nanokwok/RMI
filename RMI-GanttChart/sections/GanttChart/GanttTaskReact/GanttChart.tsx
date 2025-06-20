@@ -1,63 +1,67 @@
-"use client"
+"use client";
 
-import type React from "react"
-import { useState } from "react"
-import { Gantt, type Task, ViewMode } from "gantt-task-react"
-import "gantt-task-react/dist/index.css"
-import { TaskListHeader } from "./TaskListHeader"
-import { TaskListTable } from "./TaskListTable"
-import { initialPlans, convertToGanttTasks } from "./utils"
-import type { GanttPlan } from "../../../types/gantt-task-types"
+import type React from "react";
+import { useState } from "react";
+import { Gantt, type Task, ViewMode } from "gantt-task-react";
+import "gantt-task-react/dist/index.css";
+import { TaskListHeader } from "./TaskListHeader";
+import { TaskListTable } from "./TaskListTable";
+import { initialPlans, convertToGanttTasks } from "./utils";
+import type { GanttPlan } from "../../../types/gantt-task-types";
 
 export const GanttChart: React.FC = () => {
-  const [plans] = useState<GanttPlan[]>(initialPlans)
-  const [expandedPlans, setExpandedPlans] = useState<string[]>([])
-  const [showOwnerColumn, setShowOwnerColumn] = useState(true)
-  const [isHoveringColumnEdge, setIsHoveringColumnEdge] = useState(false)
-  const [selectedPlanId, setSelectedPlanId] = useState<string | null>(null)
-  const [isDetailView, setIsDetailView] = useState(false)
+  const [plans] = useState<GanttPlan[]>(initialPlans);
+  const [expandedPlans, setExpandedPlans] = useState<string[]>([]);
+  const [showOwnerColumn, setShowOwnerColumn] = useState(true);
+  const [isHoveringColumnEdge, setIsHoveringColumnEdge] = useState(false);
+  const [selectedPlanId, setSelectedPlanId] = useState<string | null>(null);
+  const [isDetailView, setIsDetailView] = useState(false);
 
   const togglePlanExpansion = (planId: string) => {
-    setExpandedPlans((prev) => (prev.includes(planId) ? prev.filter((id) => id !== planId) : [...prev, planId]))
-  }
+    setExpandedPlans((prev) =>
+      prev.includes(planId)
+        ? prev.filter((id) => id !== planId)
+        : [...prev, planId]
+    );
+  };
 
   const toggleOwnerColumn = () => {
-    setShowOwnerColumn(!showOwnerColumn)
-  }
+    setShowOwnerColumn(!showOwnerColumn);
+  };
 
   const handlePlanDoubleClick = (planId: string) => {
-    const plan = plans.find((p) => p.id === planId)
+    const plan = plans.find((p) => p.id === planId);
     if (plan && plan.tasks.length > 0) {
-      setSelectedPlanId(planId)
-      setIsDetailView(true)
-      setExpandedPlans([planId])
+      setSelectedPlanId(planId);
+      setIsDetailView(true);
+      setExpandedPlans([planId]);
     }
-  }
+  };
 
   const handleBackToAllPlans = () => {
-    setIsDetailView(false)
-    setSelectedPlanId(null)
-  }
+    setIsDetailView(false);
+    setSelectedPlanId(null);
+  };
 
   const getFilteredPlans = () => {
     if (isDetailView && selectedPlanId) {
-      const selectedPlan = plans.find((p) => p.id === selectedPlanId)
-      return selectedPlan ? [selectedPlan] : []
+      const selectedPlan = plans.find((p) => p.id === selectedPlanId);
+      return selectedPlan ? [selectedPlan] : [];
     }
-    return plans
-  }
+    return plans;
+  };
 
-  const filteredPlans = getFilteredPlans()
-  const tasks = convertToGanttTasks(filteredPlans, expandedPlans)
+  const filteredPlans = getFilteredPlans();
+  const tasks = convertToGanttTasks(filteredPlans, expandedPlans);
 
   const handleTaskDoubleClick = (task: Task) => {
     if (!task.project) {
-      const plan = plans.find((p) => p.id === task.id)
+      const plan = plans.find((p) => p.id === task.id);
       if (plan && plan.tasks.length > 0) {
-        handlePlanDoubleClick(task.id)
+        handlePlanDoubleClick(task.id);
       }
     }
-  }
+  };
 
   return (
     <div className="overflow-hidden">
@@ -68,13 +72,17 @@ export const GanttChart: React.FC = () => {
         rowHeight={170}
         headerHeight={50}
         barCornerRadius={10}
-        fontFamily="Roboto, sans-serif"
+        fontSize="16px"
         onDoubleClick={handleTaskDoubleClick}
         TaskListHeader={() => (
           <TaskListHeader
             showOwnerColumn={showOwnerColumn}
             isDetailView={isDetailView}
-            selectedPlanName={selectedPlanId ? plans.find((p) => p.id === selectedPlanId)?.name : undefined}
+            selectedPlanName={
+              selectedPlanId
+                ? plans.find((p) => p.id === selectedPlanId)?.name
+                : undefined
+            }
             onBackClick={handleBackToAllPlans}
           />
         )}
@@ -91,15 +99,20 @@ export const GanttChart: React.FC = () => {
           />
         )}
         TooltipContent={({ task }: { task: Task }) => {
-          const plan = plans.find((p) => p.id === task.id || p.id === task.project)
-          const taskData = plans.flatMap((p) => p.tasks).find((t) => t.id === task.id)
-          const isParent = !task.project
-          const hasSubTasks = isParent && plan && plan.tasks.length > 0
+          const plan = plans.find(
+            (p) => p.id === task.id || p.id === task.project
+          );
+          const taskData = plans
+            .flatMap((p) => p.tasks)
+            .find((t) => t.id === task.id);
+          const isParent = !task.project;
+          const hasSubTasks = isParent && plan && plan.tasks.length > 0;
 
           return (
             <div className="bg-white p-3 rounded-md shadow-lg border border-gray-300 text-base max-w-xs">
               <div className="mb-1 font-semibold">
-                {isParent ? "Plan" : "Task"}: {isParent ? plan?.name : taskData?.name}
+                {isParent ? "Plan" : "Task"}:{" "}
+                {isParent ? plan?.name : taskData?.name}
               </div>
               <div className="mb-1">
                 <strong>Progress:</strong> {task.progress}%
@@ -134,9 +147,9 @@ export const GanttChart: React.FC = () => {
                 </div>
               )}
             </div>
-          )
+          );
         }}
       />
     </div>
-  )
-}
+  );
+};

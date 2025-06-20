@@ -1,14 +1,14 @@
-import React from "react"
-import { ExpandButton } from "../../../../../components/ExpandButton"
-import { Badge } from "../../../../../components/Badge"
+import React from "react";
+import { ExpandButton } from "../../../../../components/ExpandButton";
+import { Badge } from "../../../../../components/Badge";
 
 interface TaskHeaderProps {
-  name: string
-  status: string
-  taskCount: number
-  hasSubTasks: boolean
-  isExpanded: boolean
-  onToggleExpand: () => void
+  name: string;
+  status: string;
+  taskCount: number;
+  hasSubTasks: boolean;
+  isExpanded: boolean;
+  onToggleExpand: () => void;
 }
 
 export const TaskHeader: React.FC<TaskHeaderProps> = ({
@@ -29,7 +29,9 @@ export const TaskHeader: React.FC<TaskHeaderProps> = ({
       <span
         onClick={hasSubTasks ? onToggleExpand : undefined}
         className={`font-semibold text-base text-gray-900 leading-snug overflow-hidden flex-1 line-clamp-2 ${
-          hasSubTasks ? "cursor-pointer select-none hover:underline" : "cursor-default"
+          hasSubTasks
+            ? "cursor-pointer select-none hover:underline"
+            : "cursor-default"
         }`}
         style={{
           display: "-webkit-box",
@@ -40,8 +42,13 @@ export const TaskHeader: React.FC<TaskHeaderProps> = ({
         {name}
       </span>
     </div>
-    <Badge status={status} className="!bg-gray-100 !text-gray-500 px-1.5 py-0.5 rounded-md">
-      {taskCount === 0 ? "No Task" : `${taskCount} Task${taskCount > 1 ? "s" : ""}`}
+    <Badge
+      status={status}
+      className="!bg-gray-100 !text-gray-500 px-1.5 py-0.5 rounded-md"
+    >
+      {taskCount === 0
+        ? "No Task"
+        : `${taskCount} Task${taskCount > 1 ? "s" : ""}`}
     </Badge>
   </div>
-)
+);

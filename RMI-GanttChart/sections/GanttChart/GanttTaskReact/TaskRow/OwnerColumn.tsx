@@ -1,19 +1,23 @@
-import React from "react"
-import type { Task } from "gantt-task-react"
-import type { GanttPlan } from "../../../../types/gantt-task-types"
+import React from "react";
+import type { Task } from "gantt-task-react";
+import type { GanttPlan } from "../../../../types/gantt-task-types";
 
 interface OwnerColumnProps {
-  tasks: Task[]
-  plans: GanttPlan[]
-  showOwnerColumn: boolean
+  tasks: Task[];
+  plans: GanttPlan[];
+  showOwnerColumn: boolean;
 }
 
-export const OwnerColumn: React.FC<OwnerColumnProps> = ({ tasks, plans, showOwnerColumn }) => (
+export const OwnerColumn: React.FC<OwnerColumnProps> = ({
+  tasks,
+  plans,
+  showOwnerColumn,
+}) =>
   showOwnerColumn && (
     <div className="w-[200px] bg-white relative">
       {tasks.map((task) => {
-        const plan = plans.find((p) => p.id === task.id)
-        const isParent = !task.project
+        const plan = plans.find((p) => p.id === task.id);
+        const isParent = !task.project;
 
         return (
           <div
@@ -24,8 +28,7 @@ export const OwnerColumn: React.FC<OwnerColumnProps> = ({ tasks, plans, showOwne
               {isParent && plan ? plan.owner : ""}
             </span>
           </div>
-        )
+        );
       })}
     </div>
-  )
-)
+  );

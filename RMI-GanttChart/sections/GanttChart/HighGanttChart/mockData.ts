@@ -1,4 +1,4 @@
-import type { TaskData } from '../../../types/high-gantt-types'
+import type { TaskData } from "../../../types/high-gantt-types";
 
 export const generateMockData = (): TaskData[] => {
   const today = new Date();
@@ -20,10 +20,10 @@ export const generateMockData = (): TaskData[] => {
       progress: 45,
       id: "audit_phase_1",
       start: today.getTime(),
-      end: today.getTime() + (20 * day),
+      end: today.getTime() + 20 * day,
       completed: {
-        amount: 0.45
-      }
+        amount: 0.45,
+      },
     },
     {
       name: "Cybersecurity Audit Phase 1",
@@ -32,10 +32,10 @@ export const generateMockData = (): TaskData[] => {
       progress: 75,
       parent: "audit_phase_1",
       start: today.getTime(),
-      end: today.getTime() + (5 * day),
+      end: today.getTime() + 5 * day,
       completed: {
-        amount: 0.75
-      }
+        amount: 0.75,
+      },
     },
     {
       name: "Security Training Development",
@@ -43,11 +43,11 @@ export const generateMockData = (): TaskData[] => {
       status: "not started",
       progress: 45,
       parent: "audit_phase_1",
-      start: today.getTime() + (5 * day),
-      end: today.getTime() + (10 * day),
+      start: today.getTime() + 5 * day,
+      end: today.getTime() + 10 * day,
       completed: {
-        amount: 0.45
-      }
+        amount: 0.45,
+      },
     },
     {
       name: "Supply Chain Risk Mitigation",
@@ -57,11 +57,11 @@ export const generateMockData = (): TaskData[] => {
       status: "In Progress",
       progress: 30,
       id: "audit_phase_2",
-      start: today.getTime() + (3 * day),
-      end: today.getTime() + (20 * day),
+      start: today.getTime() + 3 * day,
+      end: today.getTime() + 20 * day,
       completed: {
-        amount: 0.30
-      }
+        amount: 0.3,
+      },
     },
     {
       name: "Vendor Assessment Program",
@@ -69,11 +69,11 @@ export const generateMockData = (): TaskData[] => {
       status: "Delayed",
       progress: 45,
       parent: "audit_phase_2",
-      start: today.getTime() + (13 * day),
-      end: today.getTime() + (23 * day),
+      start: today.getTime() + 13 * day,
+      end: today.getTime() + 23 * day,
       completed: {
-        amount: 0.45
-      }
+        amount: 0.45,
+      },
     },
   ];
 };

@@ -1,6 +1,6 @@
-import type { GanttPlan } from "../../../types/gantt-task-types"
-import type { Task } from "gantt-task-react"
-import { getStatusColor } from "./styles"
+import type { GanttPlan } from "../../../types/gantt-task-types";
+import type { Task } from "gantt-task-react";
+import { getStatusColor } from "./styles";
 
 export const initialPlans: GanttPlan[] = [
   {
@@ -86,10 +86,13 @@ export const initialPlans: GanttPlan[] = [
     riskCategory: "Compliance and Legal Risk",
     tasks: [],
   },
-]
+];
 
-export const convertToGanttTasks = (plans: GanttPlan[], expandedPlans: string[]): Task[] => {
-  const tasks: Task[] = []
+export const convertToGanttTasks = (
+  plans: GanttPlan[],
+  expandedPlans: string[]
+): Task[] => {
+  const tasks: Task[] = [];
 
   plans.forEach((plan) => {
     tasks.push({
@@ -104,10 +107,9 @@ export const convertToGanttTasks = (plans: GanttPlan[], expandedPlans: string[])
         progressColor: "#ffffff66",
         backgroundColor: getStatusColor(plan.status),
         backgroundSelectedColor: getStatusColor(plan.status),
-        
       },
       isParent: true,
-    } as Task)
+    } as Task);
 
     if (expandedPlans.includes(plan.id)) {
       plan.tasks.forEach((task) => {
@@ -125,10 +127,10 @@ export const convertToGanttTasks = (plans: GanttPlan[], expandedPlans: string[])
             backgroundColor: getStatusColor(task.status),
             backgroundSelectedColor: getStatusColor(task.status),
           },
-        })
-      })
+        });
+      });
     }
-  })
+  });
 
-  return tasks
-}
+  return tasks;
+};

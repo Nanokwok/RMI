@@ -1,41 +1,48 @@
-import Highcharts from "highcharts"
-import "highcharts/modules/gantt"
-import "highcharts/modules/exporting"
-import "highcharts/modules/pattern-fill"
-import "highcharts/modules/accessibility"
-import type { ProcessedTaskData } from "../../../types/high-gantt-types"
-import { renderStatusBages } from "./ utils"
+import Highcharts from "highcharts";
+import "highcharts/modules/gantt";
+import "highcharts/modules/exporting";
+import "highcharts/modules/pattern-fill";
+import "highcharts/modules/accessibility";
+import type { ProcessedTaskData } from "../../../types/high-gantt-types";
+import { renderStatusBages } from "./ utils";
 
 Highcharts.addEvent(Highcharts.Axis, "foundExtremes", (e: any) => {
   if (e.target.options.custom && e.target.options.custom.weekendPlotBands) {
     const axis = e.target,
       chart = axis.chart,
       day = 24 * 36e5,
-      isWeekend = (t: number): boolean => /[06]/.test(chart.time.dateFormat("%w", t)),
-      plotBands: Array<{ from: number; to?: number; color: string }> = []
+      isWeekend = (t: number): boolean =>
+        /[06]/.test(chart.time.dateFormat("%w", t)),
+      plotBands: Array<{ from: number; to?: number; color: string }> = [];
 
-    let inWeekend = false
+    let inWeekend = false;
 
-    for (let x = Math.floor(axis.min / day) * day; x <= Math.ceil(axis.max / day) * day; x += day) {
-      const last = plotBands.slice(-1)[0]
+    for (
+      let x = Math.floor(axis.min / day) * day;
+      x <= Math.ceil(axis.max / day) * day;
+      x += day
+    ) {
+      const last = plotBands.slice(-1)[0];
       if (isWeekend(x) && !inWeekend) {
         plotBands.push({
           from: x,
           color: "rgba(128,128,128,0.05)",
-        })
-        inWeekend = true
+        });
+        inWeekend = true;
       }
 
       if (!isWeekend(x) && inWeekend && last) {
-        last.to = x
-        inWeekend = false
+        last.to = x;
+        inWeekend = false;
       }
     }
-    axis.options.plotBands = plotBands
+    axis.options.plotBands = plotBands;
   }
-})
+});
 
-export const getChartOptions = (data: ProcessedTaskData[]): Highcharts.Options => ({
+export const getChartOptions = (
+  data: ProcessedTaskData[]
+): Highcharts.Options => ({
   credits: {
     enabled: false,
   },
@@ -64,7 +71,7 @@ export const getChartOptions = (data: ProcessedTaskData[]): Highcharts.Options =
               textOverflow: "none",
               width: "250px",
             },
-          }
+          },
         },
         {
           title: {
@@ -72,8 +79,9 @@ export const getChartOptions = (data: ProcessedTaskData[]): Highcharts.Options =
           },
           labels: {
             formatter: function (this: { value: number }) {
-              const owner = data[this.value]?.owner || data[this.value]?.assignee
-              return `<div style="white-space: normal; word-wrap: break-word; max-width: 120px;">${owner}</div>`
+              const owner =
+                data[this.value]?.owner || data[this.value]?.assignee;
+              return `<div style="white-space: normal; word-wrap: break-word; max-width: 120px;">${owner}</div>`;
             },
             useHTML: true,
             style: {
@@ -88,7 +96,7 @@ export const getChartOptions = (data: ProcessedTaskData[]): Highcharts.Options =
           },
           labels: {
             formatter: function (this: { value: number }) {
-              return renderStatusBages(data[this.value]?.status)
+              return renderStatusBages(data[this.value]?.status);
             },
             useHTML: true,
             style: {
@@ -140,4 +148,4 @@ export const getChartOptions = (data: ProcessedTaskData[]): Highcharts.Options =
       },
     },
   ],
-})
+});
