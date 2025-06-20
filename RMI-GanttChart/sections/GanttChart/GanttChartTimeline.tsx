@@ -1,4 +1,4 @@
-import GanttChart from './GanttChart.tsx';
+import {GanttChart} from './GanttTaskReact/Index.tsx';
 
 export default function GanttChartTimeline() {
     return (

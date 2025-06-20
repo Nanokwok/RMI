@@ -1,6 +1,6 @@
 import Header from '../sections/GanttChart/Header.tsx'
-import GanttChartTimeLine from '../sections/GanttChart/GanttChartTimeline.tsx';
-import ActiveFilters from '../sections/GanttChart/ActiveFilter.tsx';
+import ActiveFilters from '../sections/GanttChart/ActiveFilter.tsx'
+import GanttChartTimeline from '../sections/GanttChart/GanttChartTimeline.tsx'
 
 function App() {
   return (
@@ -9,7 +9,7 @@ function App() {
           <Header />
           <div className='flex flex-col w-full h-full gap-4'>
             <ActiveFilters />
-            <GanttChartTimeLine />
+            <GanttChartTimeline />
           </div>
         </div>
     </>
