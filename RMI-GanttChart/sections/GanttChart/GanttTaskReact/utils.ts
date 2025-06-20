@@ -102,9 +102,9 @@ export const convertToGanttTasks = (plans: GanttPlan[], expandedPlans: string[])
       hideChildren: !expandedPlans.includes(plan.id),
       styles: {
         progressColor: "#ffffff66",
-        progressSelectedColor: "#ffffff66",
         backgroundColor: getStatusColor(plan.status),
         backgroundSelectedColor: getStatusColor(plan.status),
+        
       },
       isParent: true,
     } as Task)

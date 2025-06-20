@@ -7,6 +7,7 @@ import { getChartOptions } from "./config"
 import { processGanttData } from "./ utils"
 import { generateMockData } from "./mockData"
 import type { GanttChartProps } from "../../../types/high-gantt-types"
+// import styles from "./styles.module.css"
 
 const GanttChart: React.FC<GanttChartProps> = ({ data }) => {
   const chartRef = useRef<HTMLDivElement>(null)

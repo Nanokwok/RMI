@@ -23,6 +23,7 @@ export interface GanttPlan {
   riskCategory: string
   tasks: GanttTask[]
   isParent?: boolean
+  hasSubTasks?: boolean
 }
 
 export type TaskStatus = 
