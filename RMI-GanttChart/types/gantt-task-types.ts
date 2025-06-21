@@ -24,6 +24,8 @@ export interface GanttPlan {
   tasks: GanttTask[];
   isParent?: boolean;
   hasSubTasks?: boolean;
+  setPlanColumnWidth: number;
+  setOwnerColumnWidth: number;
 }
 
 export type TaskStatus =
@@ -60,4 +62,31 @@ export interface TaskListTableProps {
   togglePlanExpansion: (planId: string) => void
   setPlanColumnWidth: (width: number) => void
   setOwnerColumnWidth: (width: number) => void
+}
+
+export interface TaskListTableProps {
+  tasks: Task[]
+  plans: GanttPlan[]
+  expandedPlans: string[]
+  planColumnWidth: number
+  ownerColumnWidth: number
+  togglePlanExpansion: (planId: string) => void
+  onTogglePlanWidth: () => void
+  onToggleOwnerWidth: () => void
+  isPlanCollapsed: boolean
+  isOwnerCollapsed: boolean
+}
+
+export interface TaskListHeaderProps {
+  planColumnWidth: number
+  ownerColumnWidth: number
+  isDetailView?: boolean
+  selectedPlanName?: string
+  onBackClick?: () => void
+}
+
+export interface ToggleButtonProps {
+  direction: "left" | "right";
+  onClick: () => void;
+  isCollapsed?: boolean;
 }
