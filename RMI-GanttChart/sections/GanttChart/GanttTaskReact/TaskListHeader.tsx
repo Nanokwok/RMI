@@ -1,37 +1,38 @@
-"use client";
+"use client"
 
-import type React from "react";
-import { ArrowLeft } from "lucide-react";
+import type React from "react"
+import { ArrowLeft } from "lucide-react"
 
 interface TaskListHeaderProps {
-  showOwnerColumn: boolean;
-  isDetailView?: boolean;
-  selectedPlanName?: string;
-  onBackClick?: () => void;
+  planColumnWidth: number
+  ownerColumnWidth: number
+  isDetailView?: boolean
+  selectedPlanName?: string
+  onBackClick?: () => void
 }
 
 export const TaskListHeader: React.FC<TaskListHeaderProps> = ({
-  showOwnerColumn,
+  planColumnWidth,
+  ownerColumnWidth,
   isDetailView = false,
   selectedPlanName,
   onBackClick,
 }) => (
-  <div className="h-[50px] flex bg-slate-50 border-b border-gray-300 font-semibold text-base text-gray-700 group">
+  <div className="h-[50px] flex bg-slate-50 border-b border-slate-300 font-semibold text-base text-slate-700">
     <div
-      className={`${
-        showOwnerColumn ? "flex-1" : "w-full"
-      } flex items-center pl-4 border-r border-gray-300`}
+      className="flex items-center pl-4 border-r border-slate-300 overflow-hidden"
+      style={{ width: planColumnWidth }}
     >
       {isDetailView ? (
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-3 min-w-0">
           <div
             onClick={onBackClick}
-            className="h-8 px-2 flex items-center cursor-pointer hover:bg-gray-100 transition-colors duration-200"
+            className="h-8 px-2 flex items-center cursor-pointer hover:bg-slate-100 transition-colors duration-200 flex-shrink-0 rounded"
           >
             <ArrowLeft className="h-4 w-4 mr-1" />
           </div>
-          <span className="text-sm text-gray-600">|</span>
-          <span className="truncate max-w-[400px]" title={selectedPlanName}>
+          <span className="text-sm text-slate-400 flex-shrink-0">|</span>
+          <span className="truncate text-slate-800" title={selectedPlanName}>
             {selectedPlanName}
           </span>
         </div>
@@ -39,10 +40,13 @@ export const TaskListHeader: React.FC<TaskListHeaderProps> = ({
         "Plan"
       )}
     </div>
-    {showOwnerColumn && (
-      <div className="w-[200px] flex items-center justify-center border-l border-gray-200 relative group">
-        Owner
-      </div>
-    )}
+    <div className="w-2 bg-slate-200 flex-shrink-0 border-l border-r border-slate-300" />
+    <div
+      className="flex items-center justify-center border-l border-slate-200 overflow-hidden"
+      style={{ width: ownerColumnWidth }}
+    >
+      Owner
+    </div>
+    <div className="w-2 bg-slate-200 flex-shrink-0 border-l border-r border-slate-300" />
   </div>
-);
+)

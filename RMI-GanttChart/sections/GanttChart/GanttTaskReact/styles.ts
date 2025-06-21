@@ -5,7 +5,7 @@ export const getStatusColor = (status: string): string => {
     case "In Progress":
       return "#3b82f6";
     case "Delayed":
-      return "#f59e0b";
+      return "#ffb900";
     case "Not Started":
       return "#9ca3af";
     case "Cancel":
@@ -25,7 +25,7 @@ export const getStatusBadgeClasses = (status: string): string => {
     case "In Progress":
       return `${baseClasses} bg-blue-500`;
     case "Delayed":
-      return `${baseClasses} bg-amber-500`;
+      return `${baseClasses} bg-orange-500`;
     case "Not Started":
       return `${baseClasses} bg-gray-400`;
     case "Cancel":

@@ -1,20 +1,20 @@
-import React from "react";
-import { TaskHeader } from "./Task/TaskHeader";
-import { RiskInfo } from "./Task/RiskInfo";
-import { TaskInfo } from "./Task/TaskInfo";
-import { Badge } from "../../../../components/Badge";
-import { ProgressIndicator } from "../../../../components/ProgressIndicator";
-import type { Task } from "gantt-task-react";
-import type { GanttPlan } from "../../../../types/gantt-task-types";
+import type React from "react"
+import { TaskHeader } from "./Task/TaskHeader"
+import { RiskInfo } from "./Task/RiskInfo"
+import { TaskInfo } from "./Task/TaskInfo"
+import { Badge } from "../../../../components/Badge"
+import { ProgressIndicator } from "../../../../components/ProgressIndicator"
+import type { Task } from "gantt-task-react"
+import type { GanttPlan } from "../../../../types/gantt-task-types"
 
 interface TaskRowProps {
-  task: Task;
-  plan?: GanttPlan;
-  taskData?: any;
-  isParent: boolean;
-  isExpanded: boolean;
-  hasSubTasks: boolean;
-  onToggleExpand: () => void;
+  task: Task
+  plan?: GanttPlan
+  taskData?: any
+  isParent: boolean
+  isExpanded: boolean
+  hasSubTasks: boolean
+  onToggleExpand: () => void
 }
 
 export const TaskRow: React.FC<TaskRowProps> = ({
@@ -27,7 +27,7 @@ export const TaskRow: React.FC<TaskRowProps> = ({
   onToggleExpand,
 }) => (
   <div
-    className={`w-[550px] h-[170px] flex flex-col px-4 py-3 bg-white border-b border-r border-gray-200 box-border ${
+    className={`w-full h-[170px] flex flex-col px-4 py-3 bg-white border-b border-r border-gray-200 box-border overflow-hidden ${
       isParent ? "pl-4" : "pl-10"
     }`}
   >
@@ -41,10 +41,7 @@ export const TaskRow: React.FC<TaskRowProps> = ({
           isExpanded={isExpanded}
           onToggleExpand={onToggleExpand}
         />
-        <RiskInfo
-          linkedRisk={plan.linkedRisk}
-          riskCategory={plan.riskCategory}
-        />
+        <RiskInfo linkedRisk={plan.linkedRisk} riskCategory={plan.riskCategory} />
         <div className="flex items-center gap-2 mt-auto ml-8">
           <Badge status={plan.status}>{plan.status}</Badge>
           <ProgressIndicator progress={plan.progress} />
@@ -62,4 +59,4 @@ export const TaskRow: React.FC<TaskRowProps> = ({
       )
     )}
   </div>
-);
+)

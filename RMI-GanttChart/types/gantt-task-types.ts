@@ -50,3 +50,14 @@ export interface Task {
   };
   isParent?: boolean;
 }
+
+export interface TaskListTableProps {
+  tasks: Task[]
+  plans: GanttPlan[]
+  expandedPlans: string[]
+  planColumnWidth: number
+  ownerColumnWidth: number
+  togglePlanExpansion: (planId: string) => void
+  setPlanColumnWidth: (width: number) => void
+  setOwnerColumnWidth: (width: number) => void
+}

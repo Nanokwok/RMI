@@ -44,7 +44,7 @@ export const TaskHeader: React.FC<TaskHeaderProps> = ({
     </div>
     <Badge
       status={status}
-      className="!bg-gray-100 !text-gray-500 px-1.5 py-0.5 rounded-md"
+      className="!bg-purple-100 !text-purple-600 !px-3 py-0.5 rounded-md"
     >
       {taskCount === 0
         ? "No Task"
