@@ -39,7 +39,7 @@ export interface Task {
   start: Date;
   end: Date;
   progress: number;
-  type: "task" | "project";
+  type: "task" | "project" | "milestone";
   project?: string;
   hideChildren?: boolean;
   styles?: {
