@@ -24,8 +24,6 @@ export interface GanttPlan {
   tasks: GanttTask[];
   isParent?: boolean;
   hasSubTasks?: boolean;
-  setPlanColumnWidth: number;
-  setOwnerColumnWidth: number;
 }
 
 export type TaskStatus =
