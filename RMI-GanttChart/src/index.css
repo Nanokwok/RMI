@@ -112,6 +112,10 @@ button {
   border-bottom: 1px solid rgb(226, 232, 240);
 }
 
+input[type="date"] {
+  color-scheme: light;
+}
+
 /* @media (prefers-color-scheme: light) {
   :root {
     color: #213547;

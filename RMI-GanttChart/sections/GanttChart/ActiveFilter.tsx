@@ -34,14 +34,16 @@ const ActiveFilter = () => {
       label,
     })),
     ...(state.timeline.startDate || state.timeline.endDate
-      ? [
-          {
-            type: "timeline" as const,
-            label: `${state.timeline.startDate || "?"} - ${
-              state.timeline.endDate || "?"
-            }`,
-          },
-        ]
+      ? quickOnlySet.has("This Month")
+        ? []
+        : [
+            {
+              type: "timeline" as const,
+              label: `${state.timeline.startDate || "?"} - ${
+                state.timeline.endDate || "?"
+              }`,
+            },
+          ]
       : []),
     ...(state.timeline.showOverdue && !quickOnlySet.has("Overdue Items")
       ? [{ type: "timeline" as const, label: "Overdue only" }]

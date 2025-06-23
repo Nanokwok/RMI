@@ -19,6 +19,7 @@ const SidebarHeader = ({ onClose }: SidebarHeaderProps) => {
   };
 
   const allFilters = [
+    // hide section badge if already selected in quick
     ...state.planTasksStatus
       .filter((label) => !quickOnlySet.has(label))
       .map((label) => ({ type: "planTasksStatus" as const, label })),
@@ -34,14 +35,16 @@ const SidebarHeader = ({ onClose }: SidebarHeaderProps) => {
       label,
     })),
     ...(state.timeline.startDate || state.timeline.endDate
-      ? [
-          {
-            type: "timeline" as const,
-            label: `${state.timeline.startDate || "?"} - ${
-              state.timeline.endDate || "?"
-            }`,
-          },
-        ]
+      ? quickOnlySet.has("This Month")
+        ? []
+        : [
+            {
+              type: "timeline" as const,
+              label: `${state.timeline.startDate || "?"} - ${
+                state.timeline.endDate || "?"
+              }`,
+            },
+          ]
       : []),
     ...(state.timeline.showOverdue && !quickOnlySet.has("Overdue Items")
       ? [{ type: "timeline" as const, label: "Overdue only" }]

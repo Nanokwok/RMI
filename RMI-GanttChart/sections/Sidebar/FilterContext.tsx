@@ -1,5 +1,6 @@
 import { createContext, useReducer, useContext } from "react";
 import type { FilterState, Action } from "../../types/sidebar-filter-types";
+import { format, startOfMonth, endOfMonth } from "date-fns";
 
 const initialState: FilterState = {
   planTasksStatus: [],
@@ -92,8 +93,14 @@ function reducer(state: FilterState, action: Action): FilterState {
         ? state.quickFilters.filter((q) => q !== action.payload)
         : [...state.quickFilters, action.payload];
 
-      let updatedLevel = [...state.level];
+      let updatedPlan = [...state.planTasksStatus];
+      if (action.payload === "In progress") {
+        updatedPlan = isActive
+          ? updatedPlan.filter((p) => p !== "In progress")
+          : [...new Set([...updatedPlan, "In progress"])];
+      }
 
+      let updatedLevel = [...state.level];
       if (action.payload === "Critical & High risks") {
         updatedLevel = isActive
           ? updatedLevel.filter(
@@ -104,13 +111,6 @@ function reducer(state: FilterState, action: Action): FilterState {
             );
       }
 
-      let updatedPlan = [...state.planTasksStatus];
-      if (action.payload === "In progress") {
-        updatedPlan = isActive
-          ? updatedPlan.filter((p) => p !== "In progress")
-          : [...new Set([...updatedPlan, "In progress"])];
-      }
-
       const updatedTimeline = {
         ...state.timeline,
         showOverdue:
@@ -118,6 +118,15 @@ function reducer(state: FilterState, action: Action): FilterState {
             ? !isActive
             : state.timeline.showOverdue,
       };
+
+      if (action.payload === "This Month") {
+        const now = new Date();
+        const thisMonthStart = format(startOfMonth(now), "yyyy-MM-dd");
+        const thisMonthEnd = format(endOfMonth(now), "yyyy-MM-dd");
+
+        updatedTimeline.startDate = isActive ? "" : thisMonthStart;
+        updatedTimeline.endDate = isActive ? "" : thisMonthEnd;
+      }
 
       return {
         ...state,
@@ -145,6 +154,11 @@ function reducer(state: FilterState, action: Action): FilterState {
         updatedTimeline.showOverdue = false;
       }
 
+      if (action.payload === "This Month") {
+        updatedTimeline.startDate = "";
+        updatedTimeline.endDate = "";
+      }
+
       return {
         ...state,
         quickFilters: state.quickFilters.filter((q) => q !== action.payload),
@@ -159,20 +173,30 @@ function reducer(state: FilterState, action: Action): FilterState {
       const payload = action.payload;
       let updatedQuick = [...state.quickFilters];
 
-      if (
-        Object.prototype.hasOwnProperty.call(payload, "showOverdue") &&
-        payload.showOverdue === false
-      ) {
+      const thisMonthStart = format(startOfMonth(new Date()), "yyyy-MM-dd");
+      const thisMonthEnd = format(endOfMonth(new Date()), "yyyy-MM-dd");
+
+      if (payload.showOverdue === false) {
         updatedQuick = updatedQuick.filter((q) => q !== "Overdue Items");
       }
-
-      if (
-        Object.prototype.hasOwnProperty.call(payload, "showOverdue") &&
-        payload.showOverdue === true
-      ) {
+      if (payload.showOverdue === true) {
         if (!updatedQuick.includes("Overdue Items")) {
           updatedQuick.push("Overdue Items");
         }
+      }
+
+      const nextStart = payload.startDate ?? state.timeline.startDate;
+      const nextEnd = payload.endDate ?? state.timeline.endDate;
+
+      const isExactlyThisMonth =
+        nextStart === thisMonthStart && nextEnd === thisMonthEnd;
+
+      if (isExactlyThisMonth) {
+        if (!updatedQuick.includes("This Month")) {
+          updatedQuick.push("This Month");
+        }
+      } else {
+        updatedQuick = updatedQuick.filter((q) => q !== "This Month");
       }
 
       return {
