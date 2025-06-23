@@ -1,39 +1,40 @@
-import { useFilter } from "./FilterContext"
-import { initialPlans } from "../../src/initialPlans"
+import { useFilter } from "./FilterContext";
+import { initialPlans } from "../../src/initialPlans";
 
 export const useFilteredPlans = () => {
-  const { state } = useFilter()
+  const { state } = useFilter();
 
-  console.log("Current filter state:", state)
+  console.log("Current filter state:", state);
 
   const filteredResults = initialPlans.filter((plan) => {
-    const { planTasksStatus, level, quickFilters, timeline, categories } = state
+    const { planTasksStatus, level, quickFilters, timeline, categories } =
+      state;
 
     // Filter by plan/task status
     if (planTasksStatus.length > 0) {
       const hasMatchingStatus = planTasksStatus.some((status) => {
-        const normalizedFilterStatus = status.trim().toLowerCase()
-        const normalizedPlanStatus = plan.status.trim().toLowerCase()
+        const normalizedFilterStatus = status.trim().toLowerCase();
+        const normalizedPlanStatus = plan.status.trim().toLowerCase();
 
         // Check plan status
-        if (normalizedPlanStatus === normalizedFilterStatus) return true
+        if (normalizedPlanStatus === normalizedFilterStatus) return true;
 
         // Check task statuses
         return plan.tasks.some((task) => {
-          const normalizedTaskStatus = task.status.trim().toLowerCase()
-          return normalizedTaskStatus === normalizedFilterStatus
-        })
-      })
-      if (!hasMatchingStatus) return false
+          const normalizedTaskStatus = task.status.trim().toLowerCase();
+          return normalizedTaskStatus === normalizedFilterStatus;
+        });
+      });
+      if (!hasMatchingStatus) return false;
     }
 
     // Filter by risk level
     if (level.length > 0) {
       const hasMatchingLevel = level.some((selectedLevel) => {
-        const levelValue = selectedLevel.replace(" risk", "").trim()
-        return plan.riskLevel?.trim() === levelValue
-      })
-      if (!hasMatchingLevel) return false
+        const levelValue = selectedLevel.replace(" risk", "").trim();
+        return plan.riskLevel?.trim() === levelValue;
+      });
+      if (!hasMatchingLevel) return false;
     }
 
     // Filter by quick filters
@@ -41,67 +42,66 @@ export const useFilteredPlans = () => {
       const matchesQuickFilter = quickFilters.some((filter) => {
         switch (filter.trim()) {
           case "High Risk":
-            return plan.riskLevel?.trim() === "High"
+            return plan.riskLevel?.trim() === "High";
           case "Overdue":
             return plan.tasks.some((task) => {
-              if (!task.dueDate) return false
-              return new Date(task.dueDate) < new Date()
-            })
+              if (!task.dueDate) return false;
+              return new Date(task.dueDate) < new Date();
+            });
           case "User Owner":
-            return !plan.owner || plan.owner.trim() === ""
+            return !plan.owner || plan.owner.trim() === "";
           case "In Progress":
-            return plan.status?.trim().toLowerCase() === "in progress"
+            return plan.status?.trim().toLowerCase() === "in progress";
           case "No Tasks":
-            return plan.tasks.length === 0
+            return plan.tasks.length === 0;
           default:
-            return false
+            return false;
         }
-      })
-      if (!matchesQuickFilter) return false
+      });
+      if (!matchesQuickFilter) return false;
     }
 
     // Filter by timeline
     if (timeline.showOverdue) {
       const hasOverdueTask = plan.tasks.some((task) => {
-        if (!task.dueDate) return false
-        return new Date(task.dueDate) < new Date()
-      })
-      if (!hasOverdueTask) return false
+        if (!task.dueDate) return false;
+        return new Date(task.dueDate) < new Date();
+      });
+      if (!hasOverdueTask) return false;
     }
 
     if (timeline.startDate) {
-      const startDate = new Date(timeline.startDate)
-      const planDate = new Date(plan.startDate)
-      if (planDate < startDate) return false
+      const startDate = new Date(timeline.startDate);
+      const planDate = new Date(plan.startDate);
+      if (planDate < startDate) return false;
     }
 
     if (timeline.endDate) {
-      const endDate = new Date(timeline.endDate)
-      const planDate = new Date(plan.endDate)
-      if (planDate > endDate) return false
+      const endDate = new Date(timeline.endDate);
+      const planDate = new Date(plan.endDate);
+      if (planDate > endDate) return false;
     }
 
     // Filter by categories
     if (categories.length > 0) {
-      if (!plan.categories || plan.categories.length === 0) return false
+      const hasMatchingCategory = categories.some((fullLabel) => {
+        const parts = fullLabel.split(" - ");
+        const subCategorySelected =
+          parts.length > 1 ? parts[1].trim() : parts[0].trim();
+        return plan.riskCategory?.trim() === subCategorySelected;
+      });
 
-      const hasMatchingCategory = categories.some((category) => {
-        const [catName, subName] = category.split(" - ").map((s) => s?.trim())
-        return plan.categories.some((planCat: any) => {
-          const categoryMatch = planCat.category?.trim() === catName
-          const subCategoryMatch = !subName || planCat.subCategory?.trim() === subName
-          return categoryMatch && subCategoryMatch
-        })
-      })
-      if (!hasMatchingCategory) return false
+      if (!hasMatchingCategory) return false;
     }
 
-    return true
-  })
+    return true;
+  });
 
-  console.log(`Filtered ${filteredResults.length} plans from ${initialPlans.length} total plans`)
+  console.log(
+    `Filtered ${filteredResults.length} plans from ${initialPlans.length} total plans`
+  );
 
-  return filteredResults
-}
+  return filteredResults;
+};
 
-export default useFilteredPlans
+export default useFilteredPlans;

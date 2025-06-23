@@ -11,7 +11,7 @@ export const initialPlans: GanttPlan[] = [
     status: "Not Started",
     linkedRisk: "Data Breach and Cyber Attack Risk",
     riskLevel: "Critical",
-    riskCategory: "Information Security",
+    riskCategory: "Cyber and Info Security (IT)", // from Operational Risk
     tasks: [
       {
         id: "GT-001",
@@ -36,7 +36,7 @@ export const initialPlans: GanttPlan[] = [
     status: "In Progress",
     linkedRisk: "Supply Chain Disruption and Vendor Failure Risk",
     riskLevel: "High",
-    riskCategory: "Operational Risk Management",
+    riskCategory: "Operation", // from Operational Risk
     tasks: [
       {
         id: "GT-002",
@@ -72,7 +72,7 @@ export const initialPlans: GanttPlan[] = [
     status: "Delayed",
     linkedRisk: "Market Volatility and Economic Downturn Risk",
     riskLevel: "Moderate",
-    riskCategory: "Financial Risk Category",
+    riskCategory: "Market", // from Market Risk
     tasks: [],
   },
   {
@@ -85,7 +85,7 @@ export const initialPlans: GanttPlan[] = [
     status: "Cancelled",
     linkedRisk: "Regulatory Changes and Compliance Violation Risk",
     riskLevel: "Low",
-    riskCategory: "Compliance and Legal Risk",
+    riskCategory: "Ethic and Compliance", // from Operational Risk
     tasks: [],
   },
 ];
