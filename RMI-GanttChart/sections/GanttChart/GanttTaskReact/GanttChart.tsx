@@ -6,7 +6,8 @@ import { Gantt, type Task, ViewMode } from "gantt-task-react";
 import "gantt-task-react/dist/index.css";
 import { TaskListHeader } from "./TaskListHeader";
 import { TaskListTable } from "./TaskListTable";
-import { initialPlans, convertToGanttTasks } from "./utils";
+import { convertToGanttTasks } from "./utils";
+import { initialPlans } from "../../../src/initialPlans";
 import type { GanttPlan } from "../../../types/gantt-task-types";
 
 export const GanttChart: React.FC = () => {
@@ -88,7 +89,7 @@ export const GanttChart: React.FC = () => {
   };
 
   return (
-    <div className="w-auto h-full overflow-auto bg-white border border-slate-200 shadow-sm">
+    <div className="w-auto h-full overflow-auto bg-white border shadow-sm border-slate-200">
       <Gantt
         tasks={tasks}
         viewMode={ViewMode.Month}

@@ -11,10 +11,10 @@ function App() {
         <Header />
         <div className='flex flex-col w-full h-full gap-4'>
             <ActiveFilters />
+            <GanttChartTimeline />
           </div>
       </div>
       </ FilterProvider>
-      <GanttChartTimeline />
     </>
   );
 }
