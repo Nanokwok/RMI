@@ -31,7 +31,6 @@ function reducer(state: FilterState, action: Action): FilterState {
           : state.quickFilters,
       };
     }
-
     case "REMOVE_PLAN_TASK_STATUS": {
       const isInProgress = action.payload === "In progress";
       return {
@@ -46,18 +45,45 @@ function reducer(state: FilterState, action: Action): FilterState {
     }
 
     // risk level
-    case "TOGGLE_LEVEL":
+    case "TOGGLE_LEVEL": {
+      const isChecked = state.level.includes(action.payload);
+      const updatedLevel = isChecked
+        ? state.level.filter((l) => l !== action.payload)
+        : [...state.level, action.payload];
+
+      const hasCritical = updatedLevel.includes("Critical risk");
+      const hasHigh = updatedLevel.includes("High risk");
+
+      const updatedQuickFilters = [...state.quickFilters];
+      const quickLabel = "Critical & High risks";
+
+      const shouldAddQuick = hasCritical && hasHigh;
+      const alreadyHasQuick = updatedQuickFilters.includes(quickLabel);
+
       return {
         ...state,
-        level: state.level.includes(action.payload)
-          ? state.level.filter((l) => l !== action.payload)
-          : [...state.level, action.payload],
+        level: updatedLevel,
+        quickFilters: shouldAddQuick
+          ? alreadyHasQuick
+            ? updatedQuickFilters
+            : [...updatedQuickFilters, quickLabel]
+          : updatedQuickFilters.filter((q) => q !== quickLabel),
       };
-    case "REMOVE_LEVEL":
+    }
+    case "REMOVE_LEVEL": {
+      const updatedLevel = state.level.filter((l) => l !== action.payload);
+      const hasCritical = updatedLevel.includes("Critical risk");
+      const hasHigh = updatedLevel.includes("High risk");
+
       return {
         ...state,
-        level: state.level.filter((l) => l !== action.payload),
+        level: updatedLevel,
+        quickFilters:
+          hasCritical && hasHigh
+            ? state.quickFilters
+            : state.quickFilters.filter((q) => q !== "Critical & High risks"),
       };
+    }
 
     // quick filters
     case "TOGGLE_QUICK_FILTER": {
@@ -66,7 +92,18 @@ function reducer(state: FilterState, action: Action): FilterState {
         ? state.quickFilters.filter((q) => q !== action.payload)
         : [...state.quickFilters, action.payload];
 
-      // link quick -> section
+      let updatedLevel = [...state.level];
+
+      if (action.payload === "Critical & High risks") {
+        updatedLevel = isActive
+          ? updatedLevel.filter(
+              (l) => l !== "Critical risk" && l !== "High risk"
+            )
+          : Array.from(
+              new Set([...updatedLevel, "Critical risk", "High risk"])
+            );
+      }
+
       let updatedPlan = [...state.planTasksStatus];
       if (action.payload === "In progress") {
         updatedPlan = isActive
@@ -78,17 +115,26 @@ function reducer(state: FilterState, action: Action): FilterState {
         ...state,
         quickFilters: updatedQuick,
         planTasksStatus: updatedPlan,
+        level: updatedLevel,
       };
     }
-
     case "REMOVE_QUICK_FILTER": {
+      let updatedLevel = [...state.level];
+      if (action.payload === "Critical & High risks") {
+        updatedLevel = updatedLevel.filter(
+          (l) => l !== "Critical risk" && l !== "High risk"
+        );
+      }
+
       let updatedPlan = [...state.planTasksStatus];
       if (action.payload === "In progress") {
         updatedPlan = updatedPlan.filter((p) => p !== "In progress");
       }
+
       return {
         ...state,
         quickFilters: state.quickFilters.filter((q) => q !== action.payload),
+        level: updatedLevel,
         planTasksStatus: updatedPlan,
       };
     }

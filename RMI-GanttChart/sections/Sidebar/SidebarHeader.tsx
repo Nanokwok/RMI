@@ -8,14 +8,23 @@ const SidebarHeader = ({ onClose }: SidebarHeaderProps) => {
   const { state, dispatch } = useFilter();
   const quickOnlySet = new Set(state.quickFilters);
 
+  const levelFilterHidden = (label: string) => {
+    if (
+      quickOnlySet.has("Critical & High risks") &&
+      (label === "Critical risk" || label === "High risk")
+    ) {
+      return true;
+    }
+    return false;
+  };
+
   const allFilters = [
     ...state.planTasksStatus
       .filter((label) => !quickOnlySet.has(label))
-      .map((label) => ({
-        type: "planTasksStatus" as const,
-        label,
-      })),
-    ...state.level.map((label) => ({ type: "level" as const, label })),
+      .map((label) => ({ type: "planTasksStatus" as const, label })),
+    ...state.level
+      .filter((label) => !levelFilterHidden(label))
+      .map((label) => ({ type: "level" as const, label })),
     ...state.quickFilters.map((label) => ({
       type: "quickFilters" as const,
       label,
