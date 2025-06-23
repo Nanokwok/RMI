@@ -23,7 +23,7 @@ const QuickFilters = () => {
                 onClick={() => toggleQuick(filter.label)}
                 className={`h-7 flex justify-center items-center text-sm font-semibold border rounded-md px-2 py-1 transition ${
                   isActive
-                    ? "bg-blue-100 text-blue-700 border-blue-300"
+                    ? "!bg-blue-100 text-blue-700 border-blue-300"
                     : "bg-white hover:bg-gray-100 border-gray-300"
                 }`}
               >

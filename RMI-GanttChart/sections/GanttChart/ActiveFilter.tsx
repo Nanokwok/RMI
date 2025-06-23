@@ -78,6 +78,11 @@ const ActiveFilter = () => {
           Active Filters:
         </p>
         <div className="flex flex-wrap w-full gap-2">
+          {allFilters.length === 0 && (
+            <p className="text-sm text-blue-300">
+              No active filters
+            </p>
+          )}
           {allFilters.map((filter) => (
             <Badge
               key={`${filter.type}-${filter.label}`}

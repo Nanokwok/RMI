@@ -1,14 +1,13 @@
 @import "tailwindcss";
 
 :root {
-  font-family: "Roboto", "Noto Sans Thai", "Helvetica Neue", Helvetica, Arial,
-    sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  font-family: 'Roboto', 'Noto Sans Thai', 'Helvetica Neue', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
   line-height: 1.5;
   font-weight: 400;
 
   color-scheme: light dark;
-  color: #0f172b;
-  background-color: #f6f9fc;
+  color: #0F172B;
+  background-color: #F6F9FC;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -25,9 +24,7 @@ a:hover {
   color: #535bf2;
 }
 
-html,
-body,
-#root {
+html, body, #root {
   height: 100%;
   width: 100%;
 }
@@ -40,6 +37,7 @@ body {
   min-height: 100vh;
 }
 
+/* Typography */
 h1 {
   font-size: 60px;
   font-family: Roboto, sans-serif;
@@ -76,29 +74,48 @@ h6 {
   font-weight: 400;
 }
 
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+.body-large {
+  font-size: 18px;
+  font-family: Roboto, sans-serif;
+  font-weight: 400;
 }
 
-@media (prefers-color-scheme: light) {
+.body-medium {
+  font-size: 16px;
+  font-family: Roboto, sans-serif;
+  font-weight: 400;
+}
+
+.body-small {
+  font-size: 14px;
+
+  font-weight: 400;
+}
+
+.body-extra-small {
+  font-size: 12px;
+  font-family: Roboto, sans-serif;
+  font-weight: 400;
+}
+
+button {
+  border-radius: 8px;
+  padding: 6px 14px;
+  /* font-weight: 500;
+  font-size: 18px; */
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+}
+
+.divider {
+  border-bottom: 1px solid rgb(226, 232, 240);
+}
+
+/* @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
-    background-color: #f6f9fc;
+    background-color: #F6F9FC;
   }
   a:hover {
     color: #747bff;
@@ -106,4 +123,4 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
-}
+} */
