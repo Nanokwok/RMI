@@ -49,19 +49,20 @@ const CategoriesFilter = () => {
       dispatch({ type: "ADD_CATEGORY_SUB", payload: label });
     }
 
-    // Auto-open or close category based on sub-selections
     const currentCategory = RiskCategory.find((c) => c.name === category);
     if (currentCategory) {
       const allSubs = currentCategory.sub_category.map(
         (s) => `${category} - ${s.name}`
       );
-      const anySelected = allSubs.some(
-        (label) =>
-          (label === `${category} - ${sub}` && !isChecked) ||
-          selected.includes(label)
+
+      const subSelected = allSubs.filter(
+        (l) =>
+          (l === label && !isChecked) || // if this sub is being selected
+          (l !== label && selected.includes(l)) //  if this sub is already selected
       );
+
       setOpenCategories((prev) =>
-        anySelected
+        subSelected.length > 0
           ? [...new Set([...prev, category])]
           : prev.filter((c) => c !== category)
       );
@@ -102,7 +103,7 @@ const CategoriesFilter = () => {
             const subNames = cat.sub_category.map((s) => s.name);
             const fullLabels = subNames.map((sub) => `${cat.name} - ${sub}`);
             const isOpen = openCategories.includes(cat.name);
-            const allSelected = fullLabels.every((label) =>
+            const someSelected = fullLabels.some((label) =>
               selected.includes(label)
             );
             const hasOnlyOne = subNames.length === 1;
@@ -112,7 +113,7 @@ const CategoriesFilter = () => {
                 <Checkbox
                   label={cat.name}
                   checked={
-                    hasOnlyOne ? selected.includes(fullLabels[0]) : allSelected
+                    hasOnlyOne ? selected.includes(fullLabels[0]) : someSelected
                   }
                   onChange={() => toggleCategory(cat.name, subNames)}
                 />

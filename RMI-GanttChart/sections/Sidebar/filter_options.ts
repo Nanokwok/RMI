@@ -1,7 +1,6 @@
 import {
   LuTriangleAlert,
   LuClock,
-  LuUsers,
   LuCalendarDays,
   LuTrendingUp,
 } from "react-icons/lu";
@@ -18,12 +17,6 @@ export const MockedQuick = [
     label: "Overdue Items",
     icon: LuClock,
     count: 5,
-  },
-  {
-    id: "my-assignments",
-    label: "My Assignments",
-    icon: LuUsers,
-    count: 12,
   },
   {
     id: "this-month",
