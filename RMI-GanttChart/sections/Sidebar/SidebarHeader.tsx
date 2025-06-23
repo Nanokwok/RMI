@@ -1,8 +1,13 @@
 import { LuX } from "react-icons/lu";
-import { useFilter } from "../Sidebar/FilterContext";
+import { MdOutlineFilterAlt } from "react-icons/md";
 import { Badge } from "../../components/FilterBadge";
+import { useFilter } from "./FilterContext";
 
-const ActiveFilter = () => {
+type SidebarHeaderProps = {
+  onClose: () => void;
+};
+
+const SidebarHeader = ({ onClose }: SidebarHeaderProps) => {
   const { state, dispatch } = useFilter();
 
   const allFilters = [
@@ -72,40 +77,46 @@ const ActiveFilter = () => {
   };
 
   return (
-    <div className="flex flex-col w-full h-auto gap-4 p-4 border border-blue-200 rounded-lg shadow-sm bg-blue-50 sm:flex-row sm:items-center sm:justify-between">
-      <div className="flex flex-col w-full sm:flex-row sm:items-center sm:gap-4">
-        <p className="mb-1 font-semibold text-blue-700 shrink-0 sm:mb-0">
-          Active Filters:
+    <div className="flex flex-col space-y-1.5 p-6 bg-blue-50 border-b border-slate-200">
+      <div className="flex items-center justify-between">
+        <p className="flex items-center gap-2 text-2xl font-semibold">
+          <MdOutlineFilterAlt className="w-6 h-6" />
+          Risks Filters
         </p>
-        <div className="flex flex-wrap w-full gap-2">
-          {allFilters.map((filter) => (
-            <Badge
-              key={`${filter.type}-${filter.label}`}
-              variant="secondary"
-              className="flex items-center gap-1"
-            >
-              {filter.label}
-              <button
-                onClick={() => handleRemove(filter.type, filter.label)}
-                className="ml-1"
-              >
-                <LuX className="w-3 h-3" />
-              </button>
-            </Badge>
-          ))}
-        </div>
+        <button onClick={onClose} className="text-sm font-medium text-black">
+          <LuX className="w-3.5 h-3.5" />
+        </button>
       </div>
 
-      {allFilters.length > 0 && (
-        <button
-          onClick={handleClearAll}
-          className="w-full px-4 py-2 text-sm font-medium text-black transition-colors bg-white border border-gray-300 rounded-full sm:w-28 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-1"
-        >
-          Clear All
-        </button>
-      )}
+      <div className="flex flex-wrap items-center gap-2 mt-2">
+        <Badge variant="primary">
+          {allFilters.length} Active filter{allFilters.length !== 1 ? "s" : ""}
+        </Badge>
+
+        {allFilters.map((filter) => (
+          <Badge
+            key={`${filter.type}-${filter.label}`}
+            variant="secondary"
+            className="flex items-center gap-1"
+          >
+            {filter.label}
+            <button onClick={() => handleRemove(filter.type, filter.label)}>
+              <LuX className="w-2.5 h-2.5" />
+            </button>
+          </Badge>
+        ))}
+
+        {allFilters.length > 0 && (
+          <button
+            onClick={handleClearAll}
+            className="h-10 gap-2 ml-auto bg-white hover:bg-gray-100 text-black inline-flex items-center justify-center text-sm font-medium border border-gray-300 rounded-full px-3 py-1.5 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-1"
+          >
+            Clear All
+          </button>
+        )}
+      </div>
     </div>
   );
 };
 
-export default ActiveFilter;
+export default SidebarHeader;

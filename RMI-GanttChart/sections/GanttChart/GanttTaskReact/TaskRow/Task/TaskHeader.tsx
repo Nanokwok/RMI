@@ -1,6 +1,6 @@
 import React from "react";
 import { ExpandButton } from "../../../../../components/ExpandButton";
-import { Badge } from "../../../../../components/Badge";
+import { Badge } from "../../../../../components/GanttStatusBadge";
 
 interface TaskHeaderProps {
   name: string;
