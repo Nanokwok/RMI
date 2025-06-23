@@ -7,6 +7,9 @@ import type { SidebarHeaderProps } from "../../types/sidebar-filter-types";
 const SidebarHeader = ({ onClose }: SidebarHeaderProps) => {
   const { state, dispatch } = useFilter();
   const quickOnlySet = new Set(state.quickFilters);
+  const isValidDate = (date: string | null | undefined): boolean => {
+    return date !== null && date !== undefined && date !== "";
+  };
 
   const levelFilterHidden = (label: string) => {
     if (
@@ -34,15 +37,19 @@ const SidebarHeader = ({ onClose }: SidebarHeaderProps) => {
       type: "categories" as const,
       label,
     })),
-    ...(state.timeline.startDate || state.timeline.endDate
+    
+    ...(isValidDate(state.timeline.startDate) || isValidDate(state.timeline.endDate)
       ? quickOnlySet.has("This Month")
         ? []
         : [
             {
               type: "timeline" as const,
-              label: `${state.timeline.startDate || "?"} - ${
-                state.timeline.endDate || "?"
-              }`,
+              label:
+                isValidDate(state.timeline.startDate) && isValidDate(state.timeline.endDate)
+                  ? `From ${state.timeline.startDate} to ${state.timeline.endDate}`
+                  : isValidDate(state.timeline.startDate)
+                  ? `Since ${state.timeline.startDate}`
+                  : `Until ${state.timeline.endDate}`,
             },
           ]
       : []),
@@ -89,7 +96,7 @@ const SidebarHeader = ({ onClose }: SidebarHeaderProps) => {
   return (
     <div className="flex flex-col space-y-1.5 p-6 bg-blue-50 border-b border-slate-200">
       <div className="flex items-center justify-between">
-        <p className="flex items-center text-2xl font-semibold gap-2">
+        <p className="flex items-center gap-2 text-2xl font-semibold">
           <MdOutlineFilterAlt className="w-6 h-6" />
           Risks Filters
         </p>
@@ -98,7 +105,7 @@ const SidebarHeader = ({ onClose }: SidebarHeaderProps) => {
         </button>
       </div>
 
-      <div className="flex flex-wrap items-center mt-2 gap-2">
+      <div className="flex flex-wrap items-center gap-2 mt-2">
         <Badge variant="primary">
           {allFilters.length} Active filter{allFilters.length !== 1 ? "s" : ""}
         </Badge>

@@ -3,11 +3,8 @@ import { initialPlans } from "../../src/initialPlans";
 
 export const useFilteredPlans = () => {
   const { state } = useFilter();
-
-  console.log("Current filter state:", state);
-
   const filteredResults = initialPlans.filter((plan) => {
-    const { planTasksStatus, level, quickFilters, timeline, categories } =
+    const { planTasksStatus, level, timeline, categories } =
       state;
 
     // Filter by plan/task status
@@ -75,10 +72,6 @@ export const useFilteredPlans = () => {
 
     return true;
   });
-
-  console.log(
-    `Filtered ${filteredResults.length} plans from ${initialPlans.length} total plans`
-  );
 
   return filteredResults;
 };

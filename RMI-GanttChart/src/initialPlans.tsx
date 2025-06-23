@@ -4,8 +4,8 @@ export const initialPlans: GanttPlan[] = [
   {
     id: "MP-001",
     name: "Cybersecurity Enhancement Plan for Enterprise Infrastructure Security",
-    startDate: "2025-01-15",
-    endDate: "2027-02-28",
+    startDate: "2025-06-02",
+    endDate: "2025-06-03",
     progress: 0,
     owner: "Sarah Chen",
     status: "Not Started",
