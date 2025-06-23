@@ -2,11 +2,7 @@ import { useRef, useEffect } from "react";
 import SidebarHeader from "./SidebarHeader";
 import SidebarGroup from "./SidebarGroup";
 import SidebarFooter from "./SidebarFooter";
-
-type SidebarProps = {
-  isOpen: boolean;
-  onClose: () => void;
-};
+import type { SidebarProps } from "../../types/sidebar-filter-types";
 
 const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
   const ref = useRef<HTMLDivElement>(null);

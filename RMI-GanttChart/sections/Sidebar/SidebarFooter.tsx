@@ -1,8 +1,5 @@
 import { RefreshCw } from "lucide-react";
-
-type SidebarFooterProps = {
-  onRefresh: () => void;
-};
+import type { SidebarFooterProps } from "../../types/sidebar-filter-types";
 
 const SidebarFooter = ({ onRefresh }: SidebarFooterProps) => {
   return (

@@ -2,10 +2,7 @@ import { LuX } from "react-icons/lu";
 import { MdOutlineFilterAlt } from "react-icons/md";
 import { Badge } from "../../components/FilterBadge";
 import { useFilter } from "./FilterContext";
-
-type SidebarHeaderProps = {
-  onClose: () => void;
-};
+import type { SidebarHeaderProps } from "../../types/sidebar-filter-types";
 
 const SidebarHeader = ({ onClose }: SidebarHeaderProps) => {
   const { state, dispatch } = useFilter();
