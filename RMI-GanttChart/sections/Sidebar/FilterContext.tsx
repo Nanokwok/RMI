@@ -111,11 +111,20 @@ function reducer(state: FilterState, action: Action): FilterState {
           : [...new Set([...updatedPlan, "In progress"])];
       }
 
+      const updatedTimeline = {
+        ...state.timeline,
+        showOverdue:
+          action.payload === "Overdue Items"
+            ? !isActive
+            : state.timeline.showOverdue,
+      };
+
       return {
         ...state,
         quickFilters: updatedQuick,
         planTasksStatus: updatedPlan,
         level: updatedLevel,
+        timeline: updatedTimeline,
       };
     }
     case "REMOVE_QUICK_FILTER": {
@@ -131,23 +140,50 @@ function reducer(state: FilterState, action: Action): FilterState {
         updatedPlan = updatedPlan.filter((p) => p !== "In progress");
       }
 
+      let updatedTimeline = { ...state.timeline };
+      if (action.payload === "Overdue Items") {
+        updatedTimeline.showOverdue = false;
+      }
+
       return {
         ...state,
         quickFilters: state.quickFilters.filter((q) => q !== action.payload),
         level: updatedLevel,
         planTasksStatus: updatedPlan,
+        timeline: updatedTimeline,
       };
     }
 
     // timeline
-    case "SET_TIMELINE":
+    case "SET_TIMELINE": {
+      const payload = action.payload;
+      let updatedQuick = [...state.quickFilters];
+
+      if (
+        Object.prototype.hasOwnProperty.call(payload, "showOverdue") &&
+        payload.showOverdue === false
+      ) {
+        updatedQuick = updatedQuick.filter((q) => q !== "Overdue Items");
+      }
+
+      if (
+        Object.prototype.hasOwnProperty.call(payload, "showOverdue") &&
+        payload.showOverdue === true
+      ) {
+        if (!updatedQuick.includes("Overdue Items")) {
+          updatedQuick.push("Overdue Items");
+        }
+      }
+
       return {
         ...state,
         timeline: {
           ...state.timeline,
-          ...action.payload,
+          ...payload,
         },
+        quickFilters: updatedQuick,
       };
+    }
 
     // risk categories
     case "ADD_CATEGORY_SUB":

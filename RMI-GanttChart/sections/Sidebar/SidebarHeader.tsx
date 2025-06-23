@@ -43,7 +43,7 @@ const SidebarHeader = ({ onClose }: SidebarHeaderProps) => {
           },
         ]
       : []),
-    ...(state.timeline.showOverdue
+    ...(state.timeline.showOverdue && !quickOnlySet.has("Overdue Items")
       ? [{ type: "timeline" as const, label: "Overdue only" }]
       : []),
   ];
