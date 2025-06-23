@@ -10,25 +10,21 @@ export const MockedQuick = [
     id: "critical-high-risk",
     label: "Critical & High risks",
     icon: LuTriangleAlert,
-    count: 7,
   },
   {
     id: "overdue-items",
     label: "Overdue Items",
     icon: LuClock,
-    count: 5,
   },
   {
     id: "this-month",
     label: "This Month",
     icon: LuCalendarDays,
-    count: 18,
   },
   {
     id: "in-progress",
     label: "In progress",
     icon: LuTrendingUp,
-    count: 3,
   },
 ];
 

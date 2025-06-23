@@ -41,19 +41,32 @@ export const useFilteredPlans = () => {
     if (quickFilters.length > 0) {
       const matchesQuickFilter = quickFilters.some((filter) => {
         switch (filter.trim()) {
-          case "High Risk":
-            return plan.riskLevel?.trim() === "High";
-          case "Overdue":
+          case "Critical & High risks":
+            return (
+              plan.riskLevel?.trim() === "Critical" ||
+              plan.riskLevel?.trim() === "High"
+            );
+
+          case "Overdue Items":
             return plan.tasks.some((task) => {
               if (!task.dueDate) return false;
               return new Date(task.dueDate) < new Date();
             });
-          case "User Owner":
-            return !plan.owner || plan.owner.trim() === "";
-          case "In Progress":
+
+          case "This Month":
+            const now = new Date();
+            return plan.tasks.some((task) => {
+              if (!task.dueDate) return false;
+              const dueDate = new Date(task.dueDate);
+              return (
+                dueDate.getMonth() === now.getMonth() &&
+                dueDate.getFullYear() === now.getFullYear()
+              );
+            });
+
+          case "In progress":
             return plan.status?.trim().toLowerCase() === "in progress";
-          case "No Tasks":
-            return plan.tasks.length === 0;
+
           default:
             return false;
         }
