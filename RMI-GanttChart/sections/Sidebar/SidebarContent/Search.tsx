@@ -7,7 +7,7 @@ const Search = () => {
     <>
       <div className="p-3 bg-gray-50">
         <div className="px-4 py-1.5 space-y-2">
-          <label className="flex items-center gap-2 text-base font-medium leading-none text-black peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+          <label className="flex items-center text-base font-medium leading-none text-black gap-2 peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
             <LuSearch className="w-4 h-4" />
             Search
           </label>

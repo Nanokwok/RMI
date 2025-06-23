@@ -72,16 +72,14 @@ const ActiveFilter = () => {
   };
 
   return (
-    <div className="flex flex-col w-full h-auto gap-4 p-4 border border-blue-200 rounded-lg shadow-sm bg-blue-50 sm:flex-row sm:items-center sm:justify-between">
+    <div className="flex flex-col w-full h-auto p-4 border border-blue-200 rounded-lg gap-4 shadow-sm bg-blue-50 sm:flex-row sm:items-center sm:justify-between">
       <div className="flex flex-col w-full sm:flex-row sm:items-center sm:gap-4">
         <p className="mb-1 font-semibold text-blue-700 shrink-0 sm:mb-0">
           Active Filters:
         </p>
         <div className="flex flex-wrap w-full gap-2">
           {allFilters.length === 0 && (
-            <p className="text-sm text-blue-300">
-              No active filters
-            </p>
+            <p className="text-sm text-blue-300">No active filters</p>
           )}
           {allFilters.map((filter) => (
             <Badge
@@ -104,7 +102,7 @@ const ActiveFilter = () => {
       {allFilters.length > 0 && (
         <button
           onClick={handleClearAll}
-          className="w-full px-4 py-2 text-sm font-medium text-black transition-colors bg-white border border-gray-300 rounded-full sm:w-28 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-1"
+          className="w-full px-4 py-2 text-sm font-medium text-black bg-white border border-gray-300 rounded-full transition-colors sm:w-28 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-1"
         >
           Clear All
         </button>

@@ -16,7 +16,7 @@ const FilterSectionHeader = ({
   return (
     <div className="p-3 cursor-pointer hover:bg-gray-50" onClick={onClick}>
       <button className="flex items-center justify-between w-full text-base font-medium leading-none text-black">
-        <span className="flex items-center gap-2 text-base font-medium leading-none">
+        <span className="flex items-center text-base font-medium leading-none gap-2">
           {icon}
           {title}
         </span>

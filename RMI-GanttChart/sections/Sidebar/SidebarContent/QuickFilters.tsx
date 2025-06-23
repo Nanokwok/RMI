@@ -14,7 +14,7 @@ const QuickFilters = () => {
         <label className="text-sm font-medium text-gray-600 peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
           Quick Filters
         </label>
-        <div className="flex flex-wrap gap-1 mt-1">
+        <div className="flex flex-wrap mt-1 gap-1">
           {MockedQuick.map((filter) => {
             const isActive = state.quickFilters.includes(filter.label);
             return (
