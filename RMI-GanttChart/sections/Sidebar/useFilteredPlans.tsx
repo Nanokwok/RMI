@@ -81,13 +81,13 @@ export const useFilteredPlans = () => {
       if (planDate > endDate) return false
     }
 
-    // Filter by categories - Safe handling
+    // Filter by categories
     if (categories.length > 0) {
       if (!plan.categories || plan.categories.length === 0) return false
 
       const hasMatchingCategory = categories.some((category) => {
         const [catName, subName] = category.split(" - ").map((s) => s?.trim())
-        return plan.categories.some((planCat) => {
+        return plan.categories.some((planCat: any) => {
           const categoryMatch = planCat.category?.trim() === catName
           const subCategoryMatch = !subName || planCat.subCategory?.trim() === subName
           return categoryMatch && subCategoryMatch

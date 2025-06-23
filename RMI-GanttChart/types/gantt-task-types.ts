@@ -9,6 +9,7 @@ export interface GanttTask {
   planId: string;
   planName: string;
   isParent?: boolean;
+  dueDate?: string;
 }
 
 export interface GanttPlan {
@@ -24,6 +25,8 @@ export interface GanttPlan {
   tasks: GanttTask[];
   isParent?: boolean;
   hasSubTasks?: boolean;
+  riskLevel?: string;
+  categories?: any;
 }
 
 export type TaskStatus =

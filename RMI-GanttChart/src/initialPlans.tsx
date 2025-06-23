@@ -10,6 +10,7 @@ export const initialPlans: GanttPlan[] = [
     owner: "Sarah Chen",
     status: "Not Started",
     linkedRisk: "Data Breach and Cyber Attack Risk",
+    riskLevel: "Critical",
     riskCategory: "Information Security",
     tasks: [
       {
@@ -34,6 +35,7 @@ export const initialPlans: GanttPlan[] = [
     owner: "Lisa Wong",
     status: "In Progress",
     linkedRisk: "Supply Chain Disruption and Vendor Failure Risk",
+    riskLevel: "High",
     riskCategory: "Operational Risk Management",
     tasks: [
       {
@@ -69,6 +71,7 @@ export const initialPlans: GanttPlan[] = [
     owner: "Nathan Brown",
     status: "Delayed",
     linkedRisk: "Market Volatility and Economic Downturn Risk",
+    riskLevel: "Moderate",
     riskCategory: "Financial Risk Category",
     tasks: [],
   },
@@ -81,6 +84,7 @@ export const initialPlans: GanttPlan[] = [
     owner: "Polly Green",
     status: "Cancelled",
     linkedRisk: "Regulatory Changes and Compliance Violation Risk",
+    riskLevel: "Low",
     riskCategory: "Compliance and Legal Risk",
     tasks: [],
   },

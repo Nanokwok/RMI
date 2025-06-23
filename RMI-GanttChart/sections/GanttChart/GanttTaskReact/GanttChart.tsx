@@ -103,7 +103,7 @@ export const GanttChart: React.FC = () => {
         tasks={tasks}
         viewMode={ViewMode.Month}
         columnWidth={100}
-        rowHeight={170}
+        rowHeight={190}
         headerHeight={50}
         barCornerRadius={10}
         fontSize="16px"

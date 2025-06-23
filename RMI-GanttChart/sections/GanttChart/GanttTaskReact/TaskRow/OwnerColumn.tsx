@@ -17,7 +17,7 @@ export const OwnerColumn: React.FC<OwnerColumnProps> = ({ tasks, plans, width })
       return (
         <div
           key={`owner-${task.id}`}
-          className="h-[170px] flex items-center justify-center px-4 bg-white border-b border-gray-200 box-border overflow-hidden"
+          className="h-[190px] flex items-center justify-center px-4 bg-white border-b border-gray-200 box-border overflow-hidden"
         >
           <span className="text-base font-medium text-center text-gray-900 break-words line-clamp-2">
             {isParent && plan ? plan.owner : ""}
