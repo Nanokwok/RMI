@@ -88,7 +88,7 @@ export const GanttChart: React.FC = () => {
   };
 
   return (
-    <div className="w-full h-full overflow-auto border border-slate-200 rounded-lg bg-white shadow-sm">
+    <div className="w-auto h-full overflow-auto border border-slate-200 bg-white shadow-sm">
       <Gantt
         tasks={tasks}
         viewMode={ViewMode.Month}
