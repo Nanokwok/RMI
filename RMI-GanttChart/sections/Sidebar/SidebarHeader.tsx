@@ -6,12 +6,15 @@ import type { SidebarHeaderProps } from "../../types/sidebar-filter-types";
 
 const SidebarHeader = ({ onClose }: SidebarHeaderProps) => {
   const { state, dispatch } = useFilter();
+  const quickOnlySet = new Set(state.quickFilters);
 
   const allFilters = [
-    ...state.planTasksStatus.map((label) => ({
-      type: "planTasksStatus" as const,
-      label,
-    })),
+    ...state.planTasksStatus
+      .filter((label) => !quickOnlySet.has(label))
+      .map((label) => ({
+        type: "planTasksStatus" as const,
+        label,
+      })),
     ...state.level.map((label) => ({ type: "level" as const, label })),
     ...state.quickFilters.map((label) => ({
       type: "quickFilters" as const,
@@ -69,9 +72,7 @@ const SidebarHeader = ({ onClose }: SidebarHeaderProps) => {
     }
   };
 
-  const handleClearAll = () => {
-    dispatch({ type: "CLEAR_ALL" });
-  };
+  const handleClearAll = () => dispatch({ type: "CLEAR_ALL" });
 
   return (
     <div className="flex flex-col space-y-1.5 p-6 bg-blue-50 border-b border-slate-200">

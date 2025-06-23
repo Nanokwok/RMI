@@ -5,11 +5,13 @@ import { Badge } from "../../components/FilterBadge";
 const ActiveFilter = () => {
   const { state, dispatch } = useFilter();
 
+  const quickOnlySet = new Set(state.quickFilters);
+
   const allFilters = [
-    ...state.planTasksStatus.map((label) => ({
-      type: "planTasksStatus" as const,
-      label,
-    })),
+    // hide section badge if already selected in quick
+    ...state.planTasksStatus
+      .filter((label) => !quickOnlySet.has(label))
+      .map((label) => ({ type: "planTasksStatus" as const, label })),
     ...state.level.map((label) => ({ type: "level" as const, label })),
     ...state.quickFilters.map((label) => ({
       type: "quickFilters" as const,
@@ -67,9 +69,7 @@ const ActiveFilter = () => {
     }
   };
 
-  const handleClearAll = () => {
-    dispatch({ type: "CLEAR_ALL" });
-  };
+  const handleClearAll = () => dispatch({ type: "CLEAR_ALL" });
 
   return (
     <div className="flex flex-col w-full h-auto p-4 border border-blue-200 rounded-lg gap-4 shadow-sm bg-blue-50 sm:flex-row sm:items-center sm:justify-between">
