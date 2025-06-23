@@ -1,92 +1,101 @@
-"use client";
+"use client"
 
-import type React from "react";
-import { useState } from "react";
-import { Gantt, type Task, ViewMode } from "gantt-task-react";
-import "gantt-task-react/dist/index.css";
-import { TaskListHeader } from "./TaskListHeader";
-import { TaskListTable } from "./TaskListTable";
-import { convertToGanttTasks } from "./utils";
-import { initialPlans } from "../../../src/initialPlans";
-import type { GanttPlan } from "../../../types/gantt-task-types";
+import type React from "react"
+import { useState } from "react"
+import { Gantt, type Task, ViewMode } from "gantt-task-react"
+import "gantt-task-react/dist/index.css"
+import { TaskListHeader } from "./TaskListHeader"
+import { TaskListTable } from "./TaskListTable"
+import { convertToGanttTasks } from "./utils"
+import { useFilteredPlans } from "../../Sidebar/useFilteredPlans"
+import { EmptyState } from "./EmptyState"
+import { useFilter } from "../../Sidebar/FilterContext"
 
 export const GanttChart: React.FC = () => {
-  const [plans] = useState<GanttPlan[]>(initialPlans);
-  const [expandedPlans, setExpandedPlans] = useState<string[]>([]);
-  const [selectedPlanId, setSelectedPlanId] = useState<string | null>(null);
-  const [isDetailView, setIsDetailView] = useState(false);
+  const filteredPlansFromSidebar = useFilteredPlans()
 
-  const [planColumnWidth, setPlanColumnWidth] = useState(550);
-  const [ownerColumnWidth, setOwnerColumnWidth] = useState(200);
-  const [isPlanCollapsed, setIsPlanCollapsed] = useState(false);
-  const [isOwnerCollapsed, setIsOwnerCollapsed] = useState(false);
+  const [expandedPlans, setExpandedPlans] = useState<string[]>([])
+  const [selectedPlanId, setSelectedPlanId] = useState<string | null>(null)
+  const [isDetailView, setIsDetailView] = useState(false)
 
-  const DEFAULT_PLAN_WIDTH = 550;
-  const DEFAULT_OWNER_WIDTH = 200;
-  const COLLAPSED_PLAN_WIDTH = 300;
-  const COLLAPSED_OWNER_WIDTH = 0;
+  const [planColumnWidth, setPlanColumnWidth] = useState(550)
+  const [ownerColumnWidth, setOwnerColumnWidth] = useState(200)
+  const [isPlanCollapsed, setIsPlanCollapsed] = useState(false)
+  const [isOwnerCollapsed, setIsOwnerCollapsed] = useState(false)
+
+  const DEFAULT_PLAN_WIDTH = 550
+  const DEFAULT_OWNER_WIDTH = 200
+  const COLLAPSED_PLAN_WIDTH = 300
+  const COLLAPSED_OWNER_WIDTH = 0
 
   const togglePlanExpansion = (planId: string) => {
-    setExpandedPlans((prev) =>
-      prev.includes(planId)
-        ? prev.filter((id) => id !== planId)
-        : [...prev, planId]
-    );
-  };
+    setExpandedPlans((prev) => (prev.includes(planId) ? prev.filter((id) => id !== planId) : [...prev, planId]))
+  }
 
   const togglePlanColumnWidth = () => {
     if (isPlanCollapsed) {
-      setPlanColumnWidth(DEFAULT_PLAN_WIDTH);
-      setIsPlanCollapsed(false);
+      setPlanColumnWidth(DEFAULT_PLAN_WIDTH)
+      setIsPlanCollapsed(false)
     } else {
-      setPlanColumnWidth(COLLAPSED_PLAN_WIDTH);
-      setIsPlanCollapsed(true);
+      setPlanColumnWidth(COLLAPSED_PLAN_WIDTH)
+      setIsPlanCollapsed(true)
     }
-  };
+  }
 
   const toggleOwnerColumnWidth = () => {
     if (isOwnerCollapsed) {
-      setOwnerColumnWidth(DEFAULT_OWNER_WIDTH);
-      setIsOwnerCollapsed(false);
+      setOwnerColumnWidth(DEFAULT_OWNER_WIDTH)
+      setIsOwnerCollapsed(false)
     } else {
-      setOwnerColumnWidth(COLLAPSED_OWNER_WIDTH);
-      setIsOwnerCollapsed(true);
+      setOwnerColumnWidth(COLLAPSED_OWNER_WIDTH)
+      setIsOwnerCollapsed(true)
     }
-  };
+  }
 
   const handlePlanDoubleClick = (planId: string) => {
-    const plan = plans.find((p) => p.id === planId);
+    const plan = filteredPlansFromSidebar.find((p) => p.id === planId)
     if (plan && plan.tasks.length > 0) {
-      setSelectedPlanId(planId);
-      setIsDetailView(true);
-      setExpandedPlans([planId]);
+      setSelectedPlanId(planId)
+      setIsDetailView(true)
+      setExpandedPlans([planId])
     }
-  };
+  }
 
   const handleBackToAllPlans = () => {
-    setIsDetailView(false);
-    setSelectedPlanId(null);
-  };
+    setIsDetailView(false)
+    setSelectedPlanId(null)
+  }
 
   const getFilteredPlans = () => {
     if (isDetailView && selectedPlanId) {
-      const selectedPlan = plans.find((p) => p.id === selectedPlanId);
-      return selectedPlan ? [selectedPlan] : [];
+      const selectedPlan = filteredPlansFromSidebar.find((p) => p.id === selectedPlanId)
+      return selectedPlan ? [selectedPlan] : []
     }
-    return plans;
-  };
+    return filteredPlansFromSidebar
+  }
 
-  const filteredPlans = getFilteredPlans();
-  const tasks = convertToGanttTasks(filteredPlans, expandedPlans);
+  const filteredPlans = getFilteredPlans()
+  const tasks = convertToGanttTasks(filteredPlans, expandedPlans)
+
+  const { dispatch } = useFilter()
+
+  const handleClearFilters = () => {
+    dispatch({ type: "CLEAR_ALL" })
+  }
+
+  // Add check for empty results (replace the existing empty check)
+  if (filteredPlans.length === 0) {
+    return <EmptyState onClearFilters={handleClearFilters} />
+  }
 
   const handleTaskDoubleClick = (task: Task) => {
     if (!task.project) {
-      const plan = plans.find((p) => p.id === task.id);
+      const plan = filteredPlansFromSidebar.find((p) => p.id === task.id)
       if (plan && plan.tasks.length > 0) {
-        handlePlanDoubleClick(task.id);
+        handlePlanDoubleClick(task.id)
       }
     }
-  };
+  }
 
   return (
     <div className="w-auto h-full overflow-auto bg-white border shadow-sm border-slate-200">
@@ -105,9 +114,7 @@ export const GanttChart: React.FC = () => {
             ownerColumnWidth={ownerColumnWidth}
             isDetailView={isDetailView}
             selectedPlanName={
-              selectedPlanId
-                ? plans.find((p) => p.id === selectedPlanId)?.name
-                : undefined
+              selectedPlanId ? filteredPlansFromSidebar.find((p) => p.id === selectedPlanId)?.name : undefined
             }
             onBackClick={handleBackToAllPlans}
           />
@@ -129,20 +136,15 @@ export const GanttChart: React.FC = () => {
           />
         )}
         TooltipContent={({ task }: { task: Task }) => {
-          const plan = plans.find(
-            (p) => p.id === task.id || p.id === task.project
-          );
-          const taskData = plans
-            .flatMap((p) => p.tasks)
-            .find((t) => t.id === task.id);
-          const isParent = !task.project;
-          const hasSubTasks = isParent && plan && plan.tasks.length > 0;
+          const plan = filteredPlansFromSidebar.find((p) => p.id === task.id || p.id === task.project)
+          const taskData = filteredPlansFromSidebar.flatMap((p) => p.tasks).find((t) => t.id === task.id)
+          const isParent = !task.project
+          const hasSubTasks = isParent && plan && plan.tasks.length > 0
 
           return (
             <div className="max-w-xs p-3 text-base bg-white border rounded-lg shadow-lg border-slate-200">
               <div className="mb-1 font-semibold text-slate-900">
-                {isParent ? "Plan" : "Task"}:{" "}
-                {isParent ? plan?.name : taskData?.name}
+                {isParent ? "Plan" : "Task"}: {isParent ? plan?.name : taskData?.name}
               </div>
               <div className="mb-1 text-slate-700">
                 <strong>Progress:</strong> {task.progress}%
@@ -177,9 +179,9 @@ export const GanttChart: React.FC = () => {
                 </div>
               )}
             </div>
-          );
+          )
         }}
       />
     </div>
-  );
-};
+  )
+}

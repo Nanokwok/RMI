@@ -17,6 +17,7 @@ function reducer(state: FilterState, action: Action): FilterState {
   switch (action.type) {
     // plan tasks status
     case "TOGGLE_PLAN_TASK_STATUS":
+      console.log("Toggling plan task status:", action.payload);
       return {
         ...state,
         planTasksStatus: state.planTasksStatus.includes(action.payload)
@@ -24,6 +25,7 @@ function reducer(state: FilterState, action: Action): FilterState {
           : [...state.planTasksStatus, action.payload],
       };
     case "REMOVE_PLAN_TASK_STATUS":
+      console.log("Removing plan task status:", action.payload);
       return {
         ...state,
         planTasksStatus: state.planTasksStatus.filter(
@@ -32,6 +34,7 @@ function reducer(state: FilterState, action: Action): FilterState {
       };
     // risk level
     case "TOGGLE_LEVEL":
+      console.log("Toggling risk level:", action.payload);
       return {
         ...state,
         level: state.level.includes(action.payload)
@@ -46,6 +49,7 @@ function reducer(state: FilterState, action: Action): FilterState {
 
     // quick filters
     case "TOGGLE_QUICK_FILTER":
+      console.log("Toggling quick filter:", action.payload);
       return {
         ...state,
         quickFilters: state.quickFilters.includes(action.payload)
