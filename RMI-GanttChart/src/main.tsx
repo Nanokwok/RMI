@@ -5,10 +5,10 @@ import App from "./App.jsx";
 import Header from "../components/Header.jsx";
 
 createRoot(document.getElementById("root")!).render(
-  <StrictMode>
+  // <StrictMode>
     <>
       <Header />
       <App />
     </>
-  </StrictMode>
+  // </StrictMode>
 );

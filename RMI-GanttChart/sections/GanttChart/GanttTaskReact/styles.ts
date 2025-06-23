@@ -8,7 +8,7 @@ export const getStatusColor = (status: string): string => {
       return "#ffb900";
     case "Not Started":
       return "#9ca3af";
-    case "Cancel":
+    case "Cancelled":
       return "#ef4444";
     default:
       return "#6b7280";
@@ -28,7 +28,7 @@ export const getStatusBadgeClasses = (status: string): string => {
       return `${baseClasses} bg-orange-500`;
     case "Not Started":
       return `${baseClasses} bg-gray-400`;
-    case "Cancel":
+    case "Cancelled":
       return `${baseClasses} bg-red-500`;
     default:
       return `${baseClasses} bg-gray-500`;

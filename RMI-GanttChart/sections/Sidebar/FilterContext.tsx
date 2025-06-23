@@ -60,7 +60,6 @@ function reducer(state: FilterState, action: Action): FilterState {
 
       const shouldAddQuick = hasCritical && hasHigh;
       const alreadyHasQuick = updatedQuickFilters.includes(quickLabel);
-
       return {
         ...state,
         level: updatedLevel,
@@ -127,7 +126,6 @@ function reducer(state: FilterState, action: Action): FilterState {
         updatedTimeline.startDate = isActive ? "" : thisMonthStart;
         updatedTimeline.endDate = isActive ? "" : thisMonthEnd;
       }
-
       return {
         ...state,
         quickFilters: updatedQuick,
