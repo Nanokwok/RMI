@@ -5,7 +5,7 @@ import GanttChartTimeline from "../sections/GanttChart/GanttChartTimeline.tsx";
 function App() {
   return (
     <>
-      <div className="p-8 w-full">
+      <div className="w-full p-8">
         <Header />
         <div className="flex flex-col w-full h-full gap-4">
           <ActiveFilters />

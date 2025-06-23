@@ -24,7 +24,7 @@ export const TaskHeader: React.FC<TaskHeaderProps> = ({
       {hasSubTasks ? (
         <ExpandButton isExpanded={isExpanded} onClick={onToggleExpand} />
       ) : (
-        <div className="w-6 mr-2 flex-shrink-0" />
+        <div className="flex-shrink-0 w-6 mr-2" />
       )}
       <span
         onClick={hasSubTasks ? onToggleExpand : undefined}

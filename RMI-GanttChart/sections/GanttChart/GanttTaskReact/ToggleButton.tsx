@@ -13,7 +13,7 @@ export const ToggleButton: React.FC<ToggleButtonProps> = ({
   return (
     <div
       onClick={onClick}
-      className="overflow-visible w-2 bg-slate-100 border-l border-r border-slate-300 flex items-center justify-center hover:bg-slate-200 cursor-pointer transition-colors duration-200 flex-shrink-0 touch-manipulation"
+      className="flex items-center justify-center flex-shrink-0 w-2 overflow-visible border-l border-r cursor-pointer transition-colors duration-200 bg-slate-100 border-slate-300 hover:bg-slate-200 touch-manipulation"
       title={
         direction === "left"
           ? isCollapsed
@@ -25,9 +25,9 @@ export const ToggleButton: React.FC<ToggleButtonProps> = ({
       }
     >
       {showLeftArrow ? (
-        <ChevronLeft className="w-3 h-3 scale-200 text-slate-600 bg-slate-100 rounded-l-full shadow-sm" />
+        <ChevronLeft className="w-3 h-3 rounded-l-full shadow-sm scale-200 text-slate-600 bg-slate-100" />
       ) : (
-        <ChevronRight className="w-3 h-3 scale-200 text-slate-600 bg-slate-100 rounded-l-full shadow-sm" />
+        <ChevronRight className="w-3 h-3 rounded-l-full shadow-sm scale-200 text-slate-600 bg-slate-100" />
       )}
     </div>
   );

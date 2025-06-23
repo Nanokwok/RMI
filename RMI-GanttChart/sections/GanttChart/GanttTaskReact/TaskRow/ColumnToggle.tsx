@@ -17,7 +17,7 @@ export const ColumnToggle: React.FC<ColumnToggleProps> = ({
   <>
     {showOwnerColumn ? (
       <div
-        className="absolute right-0 top-0 bottom-0 w-2 cursor-col-resize z-10 hover:bg-gray-100 transition-colors duration-100"
+        className="absolute top-0 bottom-0 right-0 z-10 w-2 cursor-col-resize hover:bg-gray-100 transition-colors duration-100"
         onMouseEnter={() => onHoverChange(true)}
         onMouseLeave={() => onHoverChange(false)}
       >
@@ -27,7 +27,7 @@ export const ColumnToggle: React.FC<ColumnToggleProps> = ({
               onClick={onToggle}
               className="!bg-white !border !border-gray-300 !rounded-full !p-1 !shadow-sm hover:!bg-gray-100"
             >
-              <FaChevronLeft className="text-gray-600 text-xs" />
+              <FaChevronLeft className="text-xs text-gray-600" />
             </button>
           </div>
         )}
@@ -35,9 +35,9 @@ export const ColumnToggle: React.FC<ColumnToggleProps> = ({
     ) : (
       <div
         onClick={onToggle}
-        className="absolute right-0 top-0 bottom-0 w-2 bg-gray-200 hover:bg-gray-100 transition-colors duration-200 z-10 flex items-center justify-center"
+        className="absolute top-0 bottom-0 right-0 z-10 flex items-center justify-center w-2 bg-gray-200 hover:bg-gray-100 transition-colors duration-200"
       >
-        <FaChevronRight className="text-gray-600 text-xs" />
+        <FaChevronRight className="text-xs text-gray-600" />
       </div>
     )}
   </>

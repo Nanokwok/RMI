@@ -8,7 +8,7 @@ interface TaskInfoProps {
 export const TaskInfo: React.FC<TaskInfoProps> = ({ name, assignee }) => (
   <>
     <div
-      className="font-semibold text-base text-gray-900 mb-2 leading-snug overflow-hidden line-clamp-2 ml-8"
+      className="mb-2 ml-8 overflow-hidden text-base font-semibold leading-snug text-gray-900 line-clamp-2"
       style={{
         display: "-webkit-box",
         WebkitLineClamp: 2,
@@ -17,7 +17,7 @@ export const TaskInfo: React.FC<TaskInfoProps> = ({ name, assignee }) => (
     >
       {name}
     </div>
-    <div className="text-base text-gray-500 mb-3 leading-snug ml-8">
+    <div className="mb-3 ml-8 text-base leading-snug text-gray-500">
       <strong>Assignee:</strong> {assignee}
     </div>
   </>

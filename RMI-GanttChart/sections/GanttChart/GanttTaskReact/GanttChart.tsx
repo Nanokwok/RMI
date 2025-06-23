@@ -88,7 +88,7 @@ export const GanttChart: React.FC = () => {
   };
 
   return (
-    <div className="w-auto h-full overflow-auto border border-slate-200 bg-white shadow-sm">
+    <div className="w-auto h-full overflow-auto bg-white border border-slate-200 shadow-sm">
       <Gantt
         tasks={tasks}
         viewMode={ViewMode.Month}
@@ -138,7 +138,7 @@ export const GanttChart: React.FC = () => {
           const hasSubTasks = isParent && plan && plan.tasks.length > 0;
 
           return (
-            <div className="bg-white p-3 rounded-lg shadow-lg border border-slate-200 text-base max-w-xs">
+            <div className="max-w-xs p-3 text-base bg-white border rounded-lg shadow-lg border-slate-200">
               <div className="mb-1 font-semibold text-slate-900">
                 {isParent ? "Plan" : "Task"}:{" "}
                 {isParent ? plan?.name : taskData?.name}
@@ -171,7 +171,7 @@ export const GanttChart: React.FC = () => {
                 </div>
               )}
               {hasSubTasks && !isDetailView && (
-                <div className="mt-2 pt-2 border-t border-slate-200 text-sm text-blue-600 font-medium">
+                <div className="pt-2 mt-2 text-sm font-medium text-blue-600 border-t border-slate-200">
                   Double click to see plan detail
                 </div>
               )}

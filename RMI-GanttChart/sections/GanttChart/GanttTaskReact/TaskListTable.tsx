@@ -19,9 +19,9 @@ export const TaskListTable: React.FC<TaskListTableProps> = ({
   isOwnerCollapsed,
 }) => {
   return (
-    <div className="bg-white flex w-full relative">
+    <div className="relative flex w-full bg-white">
       <div
-        className="bg-white relative overflow-hidden transition-all duration-300"
+        className="relative overflow-hidden bg-white transition-all duration-300"
         style={{ width: planColumnWidth }}
       >
         {tasks.map((task) => {

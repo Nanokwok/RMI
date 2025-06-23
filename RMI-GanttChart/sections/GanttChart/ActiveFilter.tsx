@@ -15,23 +15,23 @@ const planDetails = {
 export default function ActiveFilter() {
   return (
     <>
-      <div className="w-full h-auto p-4 bg-blue-50 border border-blue-200 rounded-lg shadow-sm flex items-center gap-4">
-        <div className="flex flex-row w-full items-center">
+      <div className="flex items-center w-full h-auto p-4 border border-blue-200 rounded-lg bg-blue-50 shadow-sm gap-4">
+        <div className="flex flex-row items-center w-full">
           <p className="text-blue-700">Active Filters:</p>
           <div className="flex flex-wrap ml-4 gap-2">
             {activeFilter.name.map((filter, index) => (
               <p
                 key={index}
-                className="bg-slate-50 text-slate-600 px-4 py-2 rounded-md border border-slate-200 font-semibold"
+                className="px-4 py-2 font-semibold border bg-slate-50 text-slate-600 rounded-md border-slate-200"
               >
                 {filter}
               </p>
             ))}
           </div>
         </div>
-        <div className="flex gap-2 whitespace-nowrap ml-auto">
+        <div className="flex ml-auto gap-2 whitespace-nowrap">
           {planDetails.planDetails.map((detail, index) => (
-            <span key={index} className="text-blue-500 text-sm">
+            <span key={index} className="text-sm text-blue-500">
               Showing {detail.numberOfPlan} plans • {detail.numberOfTasks} tasks
               • {detail.numberOfOverdue} overdue
             </span>

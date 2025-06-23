@@ -1,8 +1,8 @@
 export default function Header() {
     return(
         <>
-            <div className="h-auto bg-white flex flex-row items-center justify-start px-8 py-4 shadow-sm">
-                <div className="w-full flex gap-4">
+            <div className="flex flex-row items-center justify-start h-auto px-8 py-4 bg-white shadow-sm">
+                <div className="flex w-full gap-4">
                     <div className="items-center p-2 bg-gray-300 rounded-md">
                         Logo
                     </div>
@@ -11,7 +11,7 @@ export default function Header() {
                     </h5>
                 </div>
                 <div className="flex items-center gap-4">
-                    <p className="font-medium text-sky-600 bg-sky-50 px-3 py-2 rounded-md">
+                    <p className="px-3 py-2 font-medium text-sky-600 bg-sky-50 rounded-md">
                         User
                     </p>
                     <div className="items-center p-2 bg-gray-300 rounded-md">

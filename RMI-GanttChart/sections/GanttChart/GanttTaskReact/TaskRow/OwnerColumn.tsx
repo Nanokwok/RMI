@@ -9,7 +9,7 @@ interface OwnerColumnProps {
 }
 
 export const OwnerColumn: React.FC<OwnerColumnProps> = ({ tasks, plans, width }) => (
-  <div className="bg-white relative overflow-hidden" style={{ width }}>
+  <div className="relative overflow-hidden bg-white" style={{ width }}>
     {tasks.map((task) => {
       const plan = plans.find((p) => p.id === task.id)
       const isParent = !task.project
@@ -19,7 +19,7 @@ export const OwnerColumn: React.FC<OwnerColumnProps> = ({ tasks, plans, width })
           key={`owner-${task.id}`}
           className="h-[170px] flex items-center justify-center px-4 bg-white border-b border-gray-200 box-border overflow-hidden"
         >
-          <span className="text-base text-gray-900 font-medium text-center line-clamp-2 break-words">
+          <span className="text-base font-medium text-center text-gray-900 break-words line-clamp-2">
             {isParent && plan ? plan.owner : ""}
           </span>
         </div>
