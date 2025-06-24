@@ -22,11 +22,8 @@ const QuickFilters = () => {
         ).length;
 
       case "Overdue Items":
-        return initialPlans.filter((plan) =>
-          plan.tasks.some((task) => {
-            if (!task.dueDate) return false;
-            return new Date(task.dueDate) < now;
-          })
+        return initialPlans.filter(
+          (plan) => plan.status?.trim().toLowerCase() === "delayed"
         ).length;
 
       case "This Month":
