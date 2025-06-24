@@ -4,14 +4,14 @@ export const initialPlans: GanttPlan[] = [
   {
     id: "MP-001",
     name: "Cybersecurity Enhancement Plan for Enterprise Infrastructure Security",
-    startDate: "2025-06-02",
-    endDate: "2025-06-03",
+    startDate: "2025-01-15",
+    endDate: "2027-02-28",
     progress: 0,
     owner: "Sarah Chen",
     status: "Not Started",
     linkedRisk: "Data Breach and Cyber Attack Risk",
     riskLevel: "Critical",
-    riskCategory: "Information Security",
+    riskCategory: "Cyber and Info Security (IT)", // from Operational Risk
     tasks: [
       {
         id: "GT-001",
@@ -36,7 +36,7 @@ export const initialPlans: GanttPlan[] = [
     status: "In Progress",
     linkedRisk: "Supply Chain Disruption and Vendor Failure Risk",
     riskLevel: "High",
-    riskCategory: "Operational Risk Management",
+    riskCategory: "Operation", // from Operational Risk
     tasks: [
       {
         id: "GT-002",
@@ -72,20 +72,20 @@ export const initialPlans: GanttPlan[] = [
     status: "Delayed",
     linkedRisk: "Market Volatility and Economic Downturn Risk",
     riskLevel: "Moderate",
-    riskCategory: "Financial Risk Category",
+    riskCategory: "Market", // from Market Risk
     tasks: [],
   },
   {
     id: "MP-004",
     name: "Regulatory Compliance Risk Management Framework Implementation",
-    startDate: "2025-02-10",
-    endDate: "2025-03-30",
+    startDate: "2025-06-01",
+    endDate: "2025-06-30",
     progress: 0,
     owner: "Polly Green",
     status: "Cancelled",
     linkedRisk: "Regulatory Changes and Compliance Violation Risk",
     riskLevel: "Low",
-    riskCategory: "Compliance and Legal Risk",
+    riskCategory: "Ethic and Compliance", // from Operational Risk
     tasks: [],
   },
 ];

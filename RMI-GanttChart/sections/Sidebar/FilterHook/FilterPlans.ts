@@ -1,4 +1,5 @@
 import type { GanttPlan } from "../../../types/gantt-task-types";
+import { RiskCategory } from "../../Sidebar/filter_options";
 
 export interface FilterState {
   planTasksStatus: string[];
@@ -33,7 +34,7 @@ export function FilterPlans(
 
     let matchesAnyFilter = false;
 
-    // Check plan/task status filter
+    // Plan/task status filter
     if (planTasksStatus.length > 0) {
       const hasMatchingStatus = planTasksStatus.some((status) => {
         const normalizedFilterStatus = status.trim().toLowerCase();
@@ -47,7 +48,7 @@ export function FilterPlans(
       if (hasMatchingStatus) matchesAnyFilter = true;
     }
 
-    // Check risk level filter
+    // Risk level filter
     if (level.length > 0) {
       const hasMatchingLevel = level.some((selectedLevel) => {
         const levelValue = selectedLevel.replace(" risk", "").trim();
@@ -56,7 +57,7 @@ export function FilterPlans(
       if (hasMatchingLevel) matchesAnyFilter = true;
     }
 
-    // Check timeline filters
+    // Timeline filter
     if (timeline.showOverdue) {
       const hasOverdueTask = plan.tasks.some((task) => {
         return task.status === "Delayed";
@@ -82,22 +83,26 @@ export function FilterPlans(
       if (matchesTimelineFilter) matchesAnyFilter = true;
     }
 
-    // Check categories filter
+    // Category filter
     if (categories.length > 0) {
-      if (plan.categories && plan.categories.length > 0) {
-        const hasMatchingCategory = categories.some((category) => {
-          const [catName, subName] = category
-            .split(" - ")
-            .map((s) => s?.trim());
-          return plan.categories.some((planCat: any) => {
-            const categoryMatch = planCat.category?.trim() === catName;
-            const subCategoryMatch =
-              !subName || planCat.subCategory?.trim() === subName;
-            return categoryMatch && subCategoryMatch;
-          });
-        });
-        if (hasMatchingCategory) matchesAnyFilter = true;
-      }
+      const hasMatchingCategory = categories.some((filterLabel) => {
+        const [group, sub] = filterLabel.split(" - ").map((s) => s.trim());
+
+        if (!sub) {
+          const groupData = RiskCategory.find((cat) => cat.name === group);
+          if (!groupData) return false;
+
+          return groupData.sub_category.some(
+            (subCat) => subCat.name === plan.riskCategory
+          );
+        }
+
+        return plan.riskCategory === sub;
+      });
+
+      if (!hasMatchingCategory) return false;
+
+      matchesAnyFilter = true;
     }
 
     return matchesAnyFilter;
