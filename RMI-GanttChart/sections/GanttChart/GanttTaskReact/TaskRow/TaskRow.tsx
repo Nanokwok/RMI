@@ -42,7 +42,7 @@ export const TaskRow: React.FC<TaskRowProps> = ({
           onToggleExpand={onToggleExpand}
         />
         <RiskInfo linkedRisk={plan.linkedRisk} riskLevel={plan.riskLevel} riskCategory={plan.riskCategory} />
-        <div className="flex items-center gap-2 mt-auto ml-8">
+        <div className="flex items-center mt-auto ml-8 gap-2">
           <Badge status={plan.status}>{plan.status}</Badge>
           <ProgressIndicator progress={plan.progress} />
         </div>
@@ -51,7 +51,7 @@ export const TaskRow: React.FC<TaskRowProps> = ({
       taskData && (
         <>
           <TaskInfo name={taskData.name} assignee={taskData.assignee} />
-          <div className="flex items-center gap-2 ml-8">
+          <div className="flex items-center ml-8 gap-2">
             <Badge status={taskData.status}>{taskData.status}</Badge>
             <ProgressIndicator progress={task.progress} />
           </div>

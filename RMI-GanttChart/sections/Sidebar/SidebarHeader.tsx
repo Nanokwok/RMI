@@ -1,7 +1,7 @@
 import { LuX } from "react-icons/lu";
 import { MdOutlineFilterAlt } from "react-icons/md";
 import { Badge } from "../../components/FilterBadge";
-import { useFilter } from "./FilterContext";
+import { useFilter } from "./FilterHook/FilterContext/FilterContext";
 import type { SidebarHeaderProps } from "../../types/sidebar-filter-types";
 
 const SidebarHeader = ({ onClose }: SidebarHeaderProps) => {
@@ -96,7 +96,7 @@ const SidebarHeader = ({ onClose }: SidebarHeaderProps) => {
   return (
     <div className="flex flex-col space-y-1.5 p-6 bg-blue-50 border-b border-slate-200">
       <div className="flex items-center justify-between">
-        <p className="flex items-center gap-2 text-2xl font-semibold">
+        <p className="flex items-center text-2xl font-semibold gap-2">
           <MdOutlineFilterAlt className="w-6 h-6" />
           Risks Filters
         </p>
@@ -105,7 +105,7 @@ const SidebarHeader = ({ onClose }: SidebarHeaderProps) => {
         </button>
       </div>
 
-      <div className="flex flex-wrap items-center gap-2 mt-2">
+      <div className="flex flex-wrap items-center mt-2 gap-2">
         <Badge variant="primary">
           {allFilters.length} Active filter{allFilters.length !== 1 ? "s" : ""}
         </Badge>

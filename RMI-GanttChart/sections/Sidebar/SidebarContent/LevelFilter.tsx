@@ -4,7 +4,7 @@ import Checkbox from "../../../components/Checkbox";
 import { Badge } from "../../../components/FilterBadge";
 import { RiskLevel } from "../filter_options";
 import FilterSectionHeader from "../../../components/FilterSectionHeader";
-import { useFilter } from "../FilterContext";
+import { useFilter } from "../FilterHook/FilterContext/FilterContext";
 
 const LevelFilter = () => {
   const [isExpanded, setIsExpanded] = useState(false);

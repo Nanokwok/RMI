@@ -1,5 +1,5 @@
 import { MockedQuick } from "../filter_options";
-import { useFilter } from "../FilterContext";
+import { useFilter } from "../FilterHook/FilterContext/FilterContext";
 
 const QuickFilters = () => {
   const { state, dispatch } = useFilter();

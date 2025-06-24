@@ -27,6 +27,12 @@ export type Action =
   // risk categories
   | { type: "ADD_CATEGORY_SUB"; payload: string }
   | { type: "REMOVE_CATEGORY_SUB"; payload: string }
+  // refresh filters
+  | { type: "REFRESH_DATA"; payload: string }
+  // apply filters
+  | { type: "APPLY_FILTERS" }
+  // clear and apply filters
+  | { type: "CLEAR_AND_APPLY" }
   // clear all
   | { type: "CLEAR_ALL" };
 
@@ -42,3 +48,20 @@ export type SidebarFooterProps = {
 export type SidebarHeaderProps = {
   onClose: () => void;
 };
+
+export interface FilterContextType {
+  state: FilterState;
+  appliedState: FilterState;
+  dispatch: React.Dispatch<Action>;
+  applyFilters: () => void;
+  clearAndApplyFilters: () => void;
+  removeAndApplyFilter: (
+    type:
+      | "planTasksStatus"
+      | "level"
+      | "quickFilters"
+      | "categories"
+      | "timeline",
+    label: string
+  ) => void;
+}

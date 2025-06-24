@@ -2,7 +2,7 @@ import { LuCalendar } from "react-icons/lu";
 import Toggle from "../../../components/Toggle";
 import Input from "../../../components/Input";
 import FilterSectionHeader from "../../../components/FilterSectionHeader";
-import { useFilter } from "../FilterContext";
+import { useFilter } from "../FilterHook/FilterContext/FilterContext";
 import { useState } from "react";
 
 const TimelineFilter = () => {

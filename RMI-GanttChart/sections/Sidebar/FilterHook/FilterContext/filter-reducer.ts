@@ -1,20 +1,11 @@
-import { createContext, useReducer, useContext } from "react";
-import type { FilterState, Action } from "../../types/sidebar-filter-types";
 import { format, startOfMonth, endOfMonth } from "date-fns";
+import type {
+  FilterState,
+  Action,
+} from "../../../../types/sidebar-filter-types";
+import { initialState } from "./filter-constants";
 
-const initialState: FilterState = {
-  planTasksStatus: [],
-  level: [],
-  quickFilters: [],
-  timeline: {
-    startDate: "",
-    endDate: "",
-    showOverdue: false,
-  },
-  categories: [],
-};
-
-function reducer(state: FilterState, action: Action): FilterState {
+export function filterReducer(state: FilterState, action: Action): FilterState {
   switch (action.type) {
     case "TOGGLE_PLAN_TASK_STATUS": {
       const isInProgress = action.payload === "In progress";
@@ -117,7 +108,7 @@ function reducer(state: FilterState, action: Action): FilterState {
 
       let updatedPlan = [...state.planTasksStatus];
       let updatedLevel = [...state.level];
-      let updatedTimeline = { ...state.timeline };
+      const updatedTimeline = { ...state.timeline };
 
       if (action.payload === "In progress") {
         updatedPlan = isActive
@@ -164,7 +155,7 @@ function reducer(state: FilterState, action: Action): FilterState {
     case "REMOVE_QUICK_FILTER": {
       let updatedLevel = [...state.level];
       let updatedPlan = [...state.planTasksStatus];
-      let updatedTimeline = { ...state.timeline };
+      const updatedTimeline = { ...state.timeline };
 
       if (action.payload === "Critical & High risks") {
         updatedLevel = updatedLevel.filter(
@@ -199,6 +190,7 @@ function reducer(state: FilterState, action: Action): FilterState {
       const payload = action.payload;
       let updatedQuick = [...state.quickFilters];
       let updatedPlan = [...state.planTasksStatus];
+      const updatedLevel = [...state.level];
 
       const thisMonthStart = format(startOfMonth(new Date()), "yyyy-MM-dd");
       const thisMonthEnd = format(endOfMonth(new Date()), "yyyy-MM-dd");
@@ -233,6 +225,7 @@ function reducer(state: FilterState, action: Action): FilterState {
         ...state,
         quickFilters: updatedQuick,
         planTasksStatus: updatedPlan,
+        level: updatedLevel,
         timeline: {
           ...state.timeline,
           ...payload,
@@ -255,28 +248,13 @@ function reducer(state: FilterState, action: Action): FilterState {
     case "CLEAR_ALL":
       return { ...initialState };
 
+    case "APPLY_FILTERS":
+      return state;
+
+    case "CLEAR_AND_APPLY":
+      return { ...initialState };
+
     default:
       return state;
   }
 }
-
-const FilterContext = createContext<{
-  state: FilterState;
-  dispatch: React.Dispatch<Action>;
-}>({
-  state: initialState,
-  dispatch: () => null,
-});
-
-export const FilterProvider: React.FC<{ children: React.ReactNode }> = ({
-  children,
-}) => {
-  const [state, dispatch] = useReducer(reducer, initialState);
-  return (
-    <FilterContext.Provider value={{ state, dispatch }}>
-      {children}
-    </FilterContext.Provider>
-  );
-};
-
-export const useFilter = () => useContext(FilterContext);

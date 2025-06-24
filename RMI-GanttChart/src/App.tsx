@@ -1,7 +1,7 @@
 import Header from "../sections/GanttChart/Header.tsx";
 import ActiveFilters from "../sections/GanttChart/ActiveFilter.tsx";
 import GanttChartTimeline from "../sections/GanttChart/GanttChartTimeline.tsx";
-import { FilterProvider } from "../sections/Sidebar/FilterContext.tsx";
+import { FilterProvider } from "../sections/Sidebar/FilterHook/FilterContext/FilterContext.tsx";
 
 function App() {
   return (

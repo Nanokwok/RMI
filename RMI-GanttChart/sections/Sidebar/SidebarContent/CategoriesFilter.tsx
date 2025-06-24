@@ -4,7 +4,7 @@ import Checkbox from "../../../components/Checkbox";
 import Input from "../../../components/Input";
 import { RiskCategory } from "../filter_options";
 import FilterSectionHeader from "../../../components/FilterSectionHeader";
-import { useFilter } from "../FilterContext";
+import { useFilter } from "../FilterHook/FilterContext/FilterContext";
 
 const CategoriesFilter = () => {
   const [isExpanded, setIsExpanded] = useState(false);

@@ -4,6 +4,10 @@ import SidebarGroup from "./SidebarGroup";
 import SidebarFooter from "./SidebarFooter";
 import type { SidebarProps } from "../../types/sidebar-filter-types";
 
+const onFilter = () => {
+  console.log("Applt new filters");
+};
+
 const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
   const ref = useRef<HTMLDivElement>(null);
 
@@ -43,8 +47,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
         <div className="rounded-none shadow-sm bg-card text-card-foreground">
           <SidebarGroup />
         </div>
-        {/* for now, make refresh button as close button */}
-        <SidebarFooter onRefresh={onClose} />
+        <SidebarFooter onRefresh={onFilter} />
       </div>
     </>
   );

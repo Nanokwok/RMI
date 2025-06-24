@@ -3,7 +3,7 @@ import { LuTarget } from "react-icons/lu";
 import Checkbox from "../../../components/Checkbox";
 import { PlanTaskStatus } from "../filter_options";
 import FilterSectionHeader from "../../../components/FilterSectionHeader";
-import { useFilter } from "../FilterContext";
+import { useFilter } from "../FilterHook/FilterContext/FilterContext";
 
 const PlanTasksStatusFilter = () => {
   const [isExpanded, setIsExpanded] = useState(false);

@@ -1,9 +1,11 @@
+"use client";
+
 import { LuX } from "react-icons/lu";
-import { useFilter } from "../Sidebar/FilterContext";
+import { useFilter } from "../Sidebar/FilterHook/FilterContext/FilterContext";
 import { Badge } from "../../components/FilterBadge";
 
 const ActiveFilter = () => {
-  const { state, dispatch } = useFilter();
+  const { state, clearAndApplyFilters, removeAndApplyFilter } = useFilter();
 
   const quickOnlySet = new Set(state.quickFilters);
 
@@ -64,31 +66,12 @@ const ActiveFilter = () => {
       | "timeline",
     label: string
   ) => {
-    if (type === "timeline") {
-      if (label === "Overdue only") {
-        dispatch({ type: "SET_TIMELINE", payload: { showOverdue: false } });
-      } else {
-        dispatch({
-          type: "SET_TIMELINE",
-          payload: { startDate: "", endDate: "" },
-        });
-      }
-    } else {
-      dispatch({
-        type:
-          type === "planTasksStatus"
-            ? "REMOVE_PLAN_TASK_STATUS"
-            : type === "level"
-            ? "REMOVE_LEVEL"
-            : type === "quickFilters"
-            ? "REMOVE_QUICK_FILTER"
-            : "REMOVE_CATEGORY_SUB",
-        payload: label,
-      });
-    }
+    removeAndApplyFilter(type, label);
   };
 
-  const handleClearAll = () => dispatch({ type: "CLEAR_ALL" });
+  const handleClearAll = () => {
+    clearAndApplyFilters();
+  };
 
   return (
     <div className="flex flex-col w-full h-auto gap-4 p-4 border border-blue-200 rounded-lg shadow-sm bg-blue-50 sm:flex-row sm:items-center sm:justify-between">
@@ -107,12 +90,12 @@ const ActiveFilter = () => {
               className="flex items-center gap-1"
             >
               {filter.label}
-              <button
+              <div
                 onClick={() => handleRemove(filter.type, filter.label)}
-                className="ml-1"
+                className="cursor-pointer"
               >
-                <LuX className="w-3 h-3" />
-              </button>
+                <LuX className="w-3 h-3 ml-1" />
+              </div>
             </Badge>
           ))}
         </div>
